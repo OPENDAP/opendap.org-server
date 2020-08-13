@@ -54,14 +54,14 @@ function parseTabbedSection(root, section) {
  * Returns and parses the files in the FAQ folder.
  */
 app.get('/api/content/faq', (req, res) => {
-    let files = fs.readdirSync('public/Site/support/faq');
+    let files = fs.readdirSync('public/site/support/faq');
     let toReturn = [];
 
     for (const thisDir of files) {
         let thisFAQSection = [];
 
-        for (const thisFAQ of fs.readdirSync(`public/Site/support/faq/${thisDir}`)) {
-            let faqSection = fs.readFileSync(`public/Site/support/faq/${thisDir}/${thisFAQ}`, 'utf8');
+        for (const thisFAQ of fs.readdirSync(`public/site/support/faq/${thisDir}`)) {
+            let faqSection = fs.readFileSync(`public/site/support/faq/${thisDir}/${thisFAQ}`, 'utf8');
             thisFAQSection.push(processMarkdownFile(faqSection));
         }
 
@@ -74,14 +74,14 @@ app.get('/api/content/faq', (req, res) => {
 app.get('/api/content/faq/:articleTitle', (req, res) => {
     let fileName = `${req.params['articleTitle']}.md`;
 
-    let files = fs.readdirSync('public/Site/support/faq');
+    let files = fs.readdirSync('public/site/support/faq');
 
     for (const thisDir of files) {
 
-        let faqSection = fs.readdirSync(`public/Site/support/faq/${thisDir}`);
+        let faqSection = fs.readdirSync(`public/site/support/faq/${thisDir}`);
 
         if (faqSection.includes(fileName)) {
-            let file = fs.readFileSync(`public/Site/support/faq/${thisDir}/${fileName}`, 'utf8');
+            let file = fs.readFileSync(`public/site/support/faq/${thisDir}/${fileName}`, 'utf8');
             res.status(200).send(processMarkdownFile(file));
         }
     }

@@ -1,5 +1,5 @@
 {
-    "root": "public/Site/about-us/",
+    "root": "public/site/about-us/",
     "sections": [
         {
             "sectionType": "standard",

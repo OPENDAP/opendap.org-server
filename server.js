@@ -9,79 +9,75 @@ const converter = new showdown.Converter();
 
 const app = express();
 app.use(express.static(__dirname + '/dist/website'));
+app.use(express.static(__dirname + '/public'));
 
 app.get('', (req, res) => {
     res.sendFile(path.resolve('./dist/website/index.html'));
 });
 
-app.get('/api/content/about-us', (req, res) => {
-    res.status(200).send(parseConfigFile('about-us'));
-});
+app.get('/api/content/:pageTitle', (req, res) => {
+    const pageID = req.params['pageTitle'];
 
-app.get('/api/content/software', (req, res) => {
-    res.status(200).send(parseConfigFile('software'));
-});
+    if (pageID === 'faq') {
+        let files = fs.readdirSync(__dirname + '/public/site/support/faq');
+        let toReturn = [];
 
-app.get('/api/content/support', (req, res) => {
-    res.status(200).send(parseConfigFile('support'));
-});
+        for (const thisDir of files) {
+            let thisFAQSection = [];
 
-function parseConfigFile(pageID) {
-    let fileData = JSON.parse(fs.readFileSync(`public/site/${pageID.toLowerCase()}/${pageID.toLowerCase()}.config.json`, 'utf8'));
+            for (const thisFAQ of fs.readdirSync(__dirname + `/public/site/support/faq/${thisDir}`)) {
+                let faqSection = fs.readFileSync(__dirname + `/public/site/support/faq/${thisDir}/${thisFAQ}`, 'utf8');
+                thisFAQSection.push(processMarkdownFile(faqSection));
+            }
 
-    for (let thisSection of fileData.sections) {
-        if (thisSection.sectionType === "standard") {
-            parseStandardSection(fileData.root, thisSection);
-        } else if (thisSection.sectionType === "tabbed") {
-            parseTabbedSection(fileData.root, thisSection);
-        }
-    }
-
-    return fileData;
-}
-
-function parseStandardSection(root, section) {
-    section.parsedFile = processMarkdownFile(fs.readFileSync(path.join(root, section.filename), 'utf8'));
-}
-
-function parseTabbedSection(root, section) {
-    for (let thisTab of section.tabs) {
-        thisTab.parsedFile = processMarkdownFile(fs.readFileSync(path.join(root, thisTab.filename), 'utf8'));
-    }
-}
-
-/**
- * Returns and parses the files in the FAQ folder.
- */
-app.get('/api/content/faq', (req, res) => {
-    let files = fs.readdirSync('public/site/support/faq');
-    let toReturn = [];
-
-    for (const thisDir of files) {
-        let thisFAQSection = [];
-
-        for (const thisFAQ of fs.readdirSync(`public/site/support/faq/${thisDir}`)) {
-            let faqSection = fs.readFileSync(`public/site/support/faq/${thisDir}/${thisFAQ}`, 'utf8');
-            thisFAQSection.push(processMarkdownFile(faqSection));
+            toReturn.push(thisFAQSection);
         }
 
-        toReturn.push(thisFAQSection);
-    }
+        res.status(200).send(toReturn);
+    } else {
 
-    res.status(200).send(toReturn);
+
+        const confPath = path.join(__dirname, 'public', 'site', pageID, `${pageID}.config.json`);
+
+        fs.exists(confPath, (exists) => {
+            if (exists) {
+                fs.readFile(confPath, 'utf8', (err, data) => {
+                    data = JSON.parse(data);
+
+                    for (let section of data.sections) {
+                        if (section.sectionType === "standard") {
+                            section.parsedFile = processMarkdownFile(
+                                fs.readFileSync(path.join(data.root, section.filename), 'utf8'));
+                        } else if (section.sectionType === "tabbed") {
+                            for (let thisTab of section.tabs) {
+                                thisTab.parsedFile = processMarkdownFile(
+                                    fs.readFileSync(path.join(data.root, thisTab.filename), 'utf8'));
+                            }
+                        }
+                    }
+
+                    res.status(200).send(data);
+                });
+            } else {
+                res.status(404).send({
+                    error: 'Configuration file not found.'
+                });
+            }
+        });
+    }
 });
 
 app.get('/api/content/faq/:articleTitle', (req, res) => {
     let fileName = `${req.params['articleTitle']}.md`;
 
-    let files = fs.readdirSync('public/site/support/faq');
+    let files = fs.readdirSync(__dirname + '/public/site/support/faq');
 
     for (const thisDir of files) {
 
-        let faqSection = fs.readdirSync(`public/site/support/faq/${thisDir}`);
+        let faqSection = fs.readdirSync(__dirname + `/public/site/support/faq/${thisDir}`);
 
         if (faqSection.includes(fileName)) {
-            let file = fs.readFileSync(`public/site/support/faq/${thisDir}/${fileName}`, 'utf8');
+            let file = fs.readFileSync(__dirname + `/public/site/support/faq/${thisDir}/${fileName}`, 'utf8');
             res.status(200).send(processMarkdownFile(file));
         }
     }
@@ -119,7 +115,7 @@ function processMarkdownFile(md, id = 0) {
  * Returns all the versions of Hyrax that are currently on the server.
  */
 app.get('/api/versions', (req, res) => {
-    fs.readdir('public/Hyrax', (err, files) => {
+    fs.readdir(__dirname + '/public/Hyrax', (err, files) => {
         if (err) throw err;
 
         res.status(200).send({
@@ -132,7 +128,7 @@ app.get('/api/versions', (req, res) => {
  * Returns the latest version of Hyrax that is currently on the server.
  */
 app.get('/api/versions/latest', (req, res) => {
-    fs.readdir('public/Hyrax', (err, files) => {
+    fs.readdir(__dirname + '/public/Hyrax', (err, files) => {
         if (err) throw err;
         getSpecificVersion(files.sort()[files.length - 1], res);
     });
@@ -151,7 +147,7 @@ app.get('/api/versions/:version', (req, res) => {
  * @param {response} res The response that will serve the data.
  */
 function getSpecificVersion(requestedVersion, res) {
-    fs.readdir(`public/Hyrax/${requestedVersion}`, (err, files) => {
+    fs.readdir(__dirname + `/public/Hyrax/${requestedVersion}`, (err, files) => {
         if (err) throw err;
 
         allVersionFiles = {
@@ -162,7 +158,7 @@ function getSpecificVersion(requestedVersion, res) {
         };
 
         for (let f of files) {
-            let thisFile = fs.readFileSync(path.join('public', "Hyrax", requestedVersion, f), 'utf8');
+            let thisFile = fs.readFileSync(__dirname + path.join('/public', "Hyrax", requestedVersion, f), 'utf8');
 
             if (f.includes("download")) {
 

@@ -214,6 +214,12 @@ app.get('/api/jira/HK/versions/:fixVersionID', (req, res) => {
     });
 });
 
+// 404 catch 
+app.all('*', (req, res) => {
+    console.log(`[TRACE] Server 404 request: ${req.originalUrl}`);
+    res.status(200).sendFile(path.resolve('./dist/website/index.html'));
+  });
+
 http.createServer(app).listen(3001, () => {
     console.log('Server running on port 3001.')
 });

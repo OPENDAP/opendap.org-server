@@ -3,7 +3,7 @@
 The new OPeNDAP.org site has been developed using Angular CLI for the front-end
 and Node.js for the back-end. The site is template-driven, meaning that most
 content editing is done outside of HTML. This requires a server to serve
-data to the front-end, which is where Node.js comes into the picture.
+data to the front-end, which is where Node.js enters the picture.
 
 This tutorial will guide your installation of the OPeNDAP.org Node.js server
 on an linux machine running Ubuntu 18+.
@@ -50,28 +50,39 @@ Available applications:
   OpenSSH
 ````
 
-This is the most restrictive profile that will let in traffic on port
-80:
+This is the most restrictive profile that will let in traffic on port 80:
 
 ````bash
 sudo ufw allow 'Apache'
 ````
 
-## 2. Install Node.js
+## 1.3 Configure Apache Proxy
 
-sudo apt install nodejs
+You now need to configure Apache to proxy all requests incoming on port 80
+to the node.js server's port. Start by enabling Apache's proxy modules:
 
-This allows for nodejs package installs:
-sudo apt install npm
+````bash
+a2enmod proxy
+a2enmod proxy_http
+````
 
-Check the nodejs version:
-nodejs -v
+Next, you need to createa a VirtualHost that will forward port 80 requests
+to the node.js server's port, in this case, 3001. Navigate to
+Apache's `sites-available` directory, which is usually the following on Ubuntu:
 
-response:
-ubuntu@ip-172-31-52-254:~$ nodejs -v
-v8.10.0
+````bash
+/etc/apache2/sites-available/
+````
 
-## 3. Configure a virtual host
+Create the VirtualHost file in `sites-available` and make sure that Apache has
+read/write access:
+
+````bash
+touch opendap.conf
+chmod 755 opendap.conf
+````
+
+Using your editor of choice, insert the following XML into `opendap.conf`:
 
 ````XML
 <VirtualHost *:80>
@@ -97,16 +108,12 @@ v8.10.0
 </VirtualHost>
 ````
 
-And put that in /etc/apache2/sites-available/
+## 2. Clone Server Repo
 
-## 4. Clone Server Repo
+After configuring Apache, clone the [server repository](https://github.com/alexporrello/opendap.org-server)
+into /var/www/html/opendap.org-server/dist/website:
 
-Clone the server repo
- (https://github.com/alexporrello/opendap.org-server)
- into /var/www/html/opendap.org-server/dist/website.
-
-Clone in /var/www/html/
-
+````bash
 ubuntu@ip-172-31-52-254:/var/www/html$ sudo git clone https://github.com/OPENDAP/opendap.org-server
 Cloning into 'opendap.org-server'...
 Username for 'https://github.com': jgallagher59701
@@ -118,23 +125,59 @@ remote: Total 271 (delta 109), reused 187 (delta 28), pack-reused 0
 Receiving objects: 100% (271/271), 2.71 MiB | 17.56 MiB/s, done.
 Resolving deltas: 100% (109/109), done.
 ubuntu@ip-172-31-52-254:/var/www/html$ 
+````
 
-## 5. Install NPM & PM2
+## 3. Install and Configure Node
 
-Install 'pm2':
-sudo npm install -g pm2
+### 3.1. Install Node.js
 
-In the server directory (/var/www/html/opendap.org-server) run:
+Install Node.js:
 
+````bash
+sudo apt install nodejs
+````
+
+You can confirm your node installation with the command `nodejs -v`. 
+If your node installation has succeeded, the output will be node's version
+number, such as `v8.10.0`.
+
+Node.js relies on Node Package Manager (NPM). Install NPM:
+
+````bash
+sudo apt install npm
+````
+
+### 3.2. Install the Server
+
+In the server directory (`/var/www/html/opendap.org-server`), run:
+
+````bash
 sudo npm install
+````
 
-Then:
+### 3.3 Install PM2
 
-Run 'pm2 start server.js --name opendap.org' in the OPeNDAP.org-server
-dir. This runs server.js in the background and launches the app. pm2
-is basically the most awesome process manager for node ever.
+PM2 is the process manager we're going to be using to manage our node.js
+instance. To install PM2, run:
 
-ubuntu@ip-172-31-52-254:/var/www/html/opendap.org-server$ pm2 start server.js --name opendap.org
+````
+sudo npm install -g pm2
+````
+
+### 3.4 Start the Server
+
+If you're not already there, navigate to the `opendap.org-server` directory,
+and run:
+
+````
+pm2 start server.js --name opendap.org
+````
+
+This will launch the server, whose code is contained with the `server.js` file,
+in the background. After you've run the pm2 start command, you should receive
+output like the following:
+
+```
 [PM2] Starting /var/www/html/opendap.org-server/server.js in fork_mode (1 instance)
 [PM2] Done.
 ┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
@@ -142,9 +185,4 @@ ubuntu@ip-172-31-52-254:/var/www/html/opendap.org-server$ pm2 start server.js --
 ├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
 │ 0  │ opendap.org        │ fork     │ 0    │ online    │ 0%       │ 16.5mb   │
 └────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
-ubuntu@ip-172-31-52-254:/var/www/html/opendap.org-server$ 
-
-Now enable apache2's proxy:
-
-sudo a2enmod proxy
-sudo a2enmod proxy_http
+````

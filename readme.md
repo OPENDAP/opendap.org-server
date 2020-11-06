@@ -111,7 +111,7 @@ Using your editor of choice, insert the following XML into `opendap.conf`:
 ## 2. Clone Server Repo
 
 After configuring Apache, clone the [server repository](https://github.com/alexporrello/opendap.org-server)
-into /var/www/html/opendap.org-server/dist/website:
+into `/var/www/html`:
 
 ````bash
 ubuntu@ip-172-31-52-254:/var/www/html$ sudo git clone https://github.com/OPENDAP/opendap.org-server

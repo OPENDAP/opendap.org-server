@@ -4,6 +4,7 @@ const http = require('http');
 const path = require('path');
 const request = require('request');
 const showdown = require('showdown');
+const asciidoctor = require('asciidoctor')();
 
 const converter = new showdown.Converter();
 
@@ -14,6 +15,30 @@ app.use(express.static(__dirname + '/public'));
 app.get('', (req, res) => {
     res.sendFile(path.resolve('./dist/website/index.html'));
 });
+
+app.get('api/adoc-test', (req, res) => {
+    let testFile = fs.readFileSync(__dirname + `/public/Hyrax_Guide/test.adoc`, 'utf8');
+    const html = asciidoctor.convert(testFile);
+    res.status(200).end(html);
+});
+
+app.get('/api/adoc/:pageTitle', (req, res) => {
+    const pagePath = path.join(__dirname, 'public', 'adoc', `${req.params['pageTitle']}.adoc`);
+
+    fs.readFile(pagePath, (err, data) => {
+        if (err) {
+            res.status(404).send({
+                'error': 'Unable to load page data',
+                'error-text': err
+            });
+        } else {
+            const html = asciidoctor.convert(data);
+            res.status(200).send({
+                html
+            });
+        }
+    });
+})
 
 app.get('/api/content/:pageTitle', (req, res) => {
     const pageID = req.params['pageTitle'];
@@ -35,8 +60,6 @@ app.get('/api/content/:pageTitle', (req, res) => {
 
         res.status(200).send(toReturn);
     } else {
-
-
         const confPath = path.join(__dirname, 'public', 'site', pageID, `${pageID}.config.json`);
 
         fs.exists(confPath, (exists) => {

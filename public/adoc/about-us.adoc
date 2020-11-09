@@ -96,7 +96,52 @@ OPeNDAP is a 501(c)(3) nonprofit corporation that provides free, open source sof
 
 The following institutions have provided (and some continue to provide) monetary support to OPeNDAP:
 
-TODO
+|=======================
+a|image::../../../assets/images/noaa-logo.jpg[width=85px] a|
+=== link:http://www.noaa.gov/[National Oceanic and Atmospheric Administration] +
+NOAA is an agency that enriches life through science.
+Our reach goes from the surface of the sun to the depths
+of the ocean floor as we work to keep citizens informed
+of the changing environment around them.
+
+a|image::../../../assets/images/nasa-logo.jpg[width=85px] a|
+=== link:http://www.nasa.gov/[National Aeronautics and Space Administration] +
+NASA's vision: We reach for new heights
+and reveal the unknown for the benefit of humankind.
+
+a|image::../../../assets/images/nsf-logo.png[width=85px] a|
+=== link:http://www.nsf.gov/[National Science Foundation] +
+The National Science Foundation (NSF) is an
+independent federal agency created by Congress in 1950
+"to promote the progress of science; to advance the national health,
+prosperity, and welfare; to secure the national defense..."
+
+a|image::../../../assets/images/australiangov-logo.jpg[width=85px] a|
+=== link:http://www.bom.gov.au/index.shtml?ref=hdr[Australian Bureau of Meteorology] +
+The Bureau of Meteorology is Australia's national weather,
+climate and water agency. Its expertise and services assist Australians
+in dealing with the harsh realities of their natural environment,
+including drought, floods, fires, storms, tsunami and tropical cyclones.
+
+|=======================
+
+Additionally, OPeNDAP receives open-source project support
+in the form of software licenses for development tools from...
+
+|=======================
+a|image::../../../assets/images/intellij-logo_0.gif[width=85px] a|
+=== link:http://www.jetbrains.com/idea/[IntelliJ IDEA IDE from JetBrains] +
+Every aspect of IntelliJ IDEA is specifically designed
+to maximize developer productivity.
+
+a|image::../../../assets/images/yourkit-logo.png[width=85px] a|
+=== link:http://www.yourkit.com/home/index.jsp[YourKit Java Profiler] +
+YourKit is a technology leader, creator of the most innovative
+and intelligent tools for profiling Java & .NET applications.
+The YourKit Java Profiler has been already recognized
+by the IT professionals and analysts as the best profiling tool.
+
+|=======================
 
 == Get Involved
 

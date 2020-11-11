@@ -9,12 +9,12 @@ If OPeNDAP users will try to follow the support guidelines below, we can all wor
 There are a few routes you can pursue to get your questions answered. The most effective
 will likely be to start with already-written material, such as...
 
-* [Making Science Data Easier to Use with OPeNDAP](http://wiki.esipfed.org/index.php/Making_Science_Data_Easier_to_Use_with_OPeNDAP)
+* link:http://wiki.esipfed.org/index.php/Making_Science_Data_Easier_to_Use_with_OPeNDAP[Making Science Data Easier to Use with OPeNDAP]
 from the ESIP Federation.
 * Proprietary OPeNDAP documentation:
-    * [OPeNDAP User Guide](https://opendap.github.io/documentation/UserGuideComprehensive.html)
-    * [OPeNDAP Quick Start Guide](https://opendap.github.io/documentation/QuickStart.html)
-    * [Hyrax Data Server Documentation](https://opendap.github.io/hyrax_guide/Master_Hyrax_Guide.html)
+    * link:https://opendap.github.io/documentation/UserGuideComprehensive.html[OPeNDAP User Guide]
+    * link:https://opendap.github.io/documentation/QuickStart.html[OPeNDAP Quick Start Guide]
+    * link:https://opendap.github.io/hyrax_guide/Master_Hyrax_Guide.html[Hyrax Data Server Documentation]
 * The OPeNDAP email lists.
 
 If none of the above links answer your question, you can drop us a direct line at support@opendap.org.

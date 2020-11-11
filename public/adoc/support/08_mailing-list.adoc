@@ -8,7 +8,7 @@ Note that at the start of December 2010 we switched from a mailman server to Goo
 
 This is an archive of all the support questions and their answers.
 
-[[Email OPeNDAP Support <support at opendap.org>](support@opendap.org)]
+[link:support@opendap.org[Email OPeNDAP Support <support@opendap.org>]]
 [Support archive (before Dec 2010)]
 [[Group (Dec 2010 onward)](https://groups.google.com/a/opendap.org/group/support/topics)]
 

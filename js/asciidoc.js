@@ -37,7 +37,7 @@ function readAdocConf(res, pageTitle) {
     });
 }
 
-function readStandardAdoc(pagePath) {
+function readStandardAdoc(res, pagePath) {
     fs.readFile(pagePath, (err, data) => {
         if (err) {
             res.status(404).send({
@@ -55,12 +55,12 @@ function readStandardAdoc(pagePath) {
 
 module.exports = {
     getStandardArticle: function (req, res) {
-        const confDriven = fs.lstatSync(path.join(adocDir, req.params['pageTitle'])).isDirectory();
+        const confDriven = fs.existsSync(path.join(adocDir, req.params['pageTitle']));
 
         if (confDriven) {
             readAdocConf(res, req.params['pageTitle']);
         } else {
-            readStandardAdoc(path.join(adocDir, `${req.params['pageTitle']}.adoc`));
+            readStandardAdoc(res, path.join(adocDir, `${req.params['pageTitle']}.adoc`));
         }
     }
 }

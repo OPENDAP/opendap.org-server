@@ -132,14 +132,14 @@ into `/var/www/html`:
 ubuntu@ip-172-31-52-254:/var/www/html$ sudo git clone https://github.com/OPENDAP/opendap.org-server
 Cloning into 'opendap.org-server'...
 Username for 'https://github.com': jgallagher59701
-Password for 'https://jgallagher59701@github.com': 
+Password for 'https://jgallagher59701@github.com':
 remote: Enumerating objects: 271, done.
 remote: Counting objects: 100% (271/271), done.
 remote: Compressing objects: 100% (236/236), done.
 remote: Total 271 (delta 109), reused 187 (delta 28), pack-reused 0
 Receiving objects: 100% (271/271), 2.71 MiB | 17.56 MiB/s, done.
 Resolving deltas: 100% (109/109), done.
-ubuntu@ip-172-31-52-254:/var/www/html$ 
+ubuntu@ip-172-31-52-254:/var/www/html$
 ````
 
 ### 1.3. Install and Configure Node
@@ -152,7 +152,7 @@ Install Node.js:
 sudo apt install nodejs
 ````
 
-You can confirm your node installation with the command `nodejs -v`. 
+You can confirm your node installation with the command `nodejs -v`.
 If your node installation has succeeded, the output will be node's version
 number, such as `v8.10.0`.
 
@@ -192,7 +192,7 @@ This will launch the server, whose code is contained with the `server.js` file,
 in the background. After you've run the pm2 start command, you should receive
 output like the following:
 
-````BASTH
+````BASH
 [PM2] Starting /var/www/html/opendap.org-server/server.js in fork_mode (1 instance)
 [PM2] Done.
 ┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
@@ -204,37 +204,41 @@ output like the following:
 
 ## 2. Contributing and Editing Content
 
-The new site design for OPeNDAP.org is intended to be dynamic. Most of the site's content
-is contained within AsciiDoc markdown files that are housed within the server's `public`
-folder.
+OPeNDAP.org is a dynamic site. Most of its content is contained within AsciiDoc
+markdown files that are housed within the server's `./public` directory. These
+files are parsed server-side and sent to the UI.
 
-### 2.1 Editing Content
+### 2.1 Site Design Details
 
-Examples of dynamic content stored within AsciiDoc files are...
+OPeNDAP.org is a web application, rather than a set of static HTML, CSS,
+and JavaScript files. Its front-end is written with Angular CLI,
+and its back-end is a Node.js server. While some pages are static HTML
+files, such as the homepage, most of the site's content is housed
+on the server and served to the front-end via a simple REST API,
+written with Express.js.
 
-* About OPeNDAP
-* Software Homepage
-* Support Homepage
-* All FAQ content
-* Release notes for Hyrax versions
+This design lends itself to easy maintainability, as well as the
+ability to quickly and efficiently update and release new content.
 
-In most cases, updating the website's content is as simple as...
+### 2.2 Editing Content
 
-1. Enter `./public` and locate the file that is associated with the page you'd like to edit. For example, the content for
-the About OPeNDAP page is housed within `./public/adoc/about-us.adoc`.
+In most cases, editing the website's content is as simple as...
+
+1. Enter `./public/adoc` and locate the file that is associated with the page you'd like to edit. For example, the content for
+the _About OPeNDAP_ page is housed within `./public/adoc/about-us.adoc`.
 1. Update the content within the file.
-1. Commit the changes to the `opendap.org-server` Git repository.
+1. Commit and push the changes to the `opendap.org-server` Git repository.
 1. On the OPeNDAP.org host server, pull down the changes.
 
 For more structurally complicated pages, such as the support pages,
-the situation is slightly more complex.
+updating is slightly more complex.
 
-### 2.2 Editing `.conf`-driven Content
+### 2.3 Editing `.conf`-driven Content
 
-What I call `.conf`-driven content is web content that is loaded to the
-website via a configuration file. This is especially useful in instances
-where content needs to be catagorized by more than just headings. For example,
-the About OPeNDAP page contains not only a simple page navigation bar at the
+`.conf`-driven content is content that is loaded to the
+website via a configuration file. This is necessary in instances
+where content needs to be catagorized by more than just headings.
+For example, the About OPeNDAP page contains not only a simple page navigation bar at the
 top of the page, but also by tabbed content, such as the `Documentation` section:
 
 ![About OPeNDAP - Tabbed Content](./readme/tabs.PNG)
@@ -247,9 +251,12 @@ Notice how the `Documentation` section of the Support page has three tabs:
 
 The tabs are achieved by the `support.conf.json` file.
 
-#### 2.2.1 `.conf` Files
+#### 2.3.1 `.conf` Files
 
-A `.conf` file is a json file with the following structure:
+A `.conf` file is a json file that lives with the `.adoc` files that it describes.
+For example, the Support page's conf file lives within `./public/adoc/support`.
+
+`.conf` files have the following structure:
 
 ````JSON
 {
@@ -289,7 +296,7 @@ A tabbed section has the following structure:
         "sectionType": "tabbed",
         "title": "title",
         "id": "page_id",
-        "tabs": [
+        "tabs": [       // Tab objects are just sections.
                 {
                         // Tab A
                 },
@@ -300,3 +307,7 @@ A tabbed section has the following structure:
 }
 ````
 
+When content is driven by a `.conf` file, the procedure for editing
+or authoring new site content is the same as for a standard section,
+with one difference: if you are adding new content, a `section` object
+needs to be added to the `.conf` file.

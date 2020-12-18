@@ -24,7 +24,7 @@ var AsciiDocModule = /** @class */ (function () {
             }
             else {
                 _this.readStandardAdoc(path.join(_this.adocDir, pageTitle + ".adoc")).subscribe(function (html) {
-                    observer.next(html);
+                    observer.next({ html: html });
                 }, function (error) {
                     observer.error(error);
                 }, function () {

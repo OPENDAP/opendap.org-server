@@ -81,7 +81,7 @@ var HyraxModule = /** @class */ (function () {
                     });
                 }
                 else {
-                    var hyraxVersion = version === -1 ? files.sort()[files.length - 1] : "Hyrax_" + version;
+                    var hyraxVersion = version === -1 ? files.sort()[files.length - 1] : "" + version;
                     _this.getSpecificVersion("" + hyraxVersion).subscribe(function (response) {
                         observer.next(response);
                     }, function (error) {

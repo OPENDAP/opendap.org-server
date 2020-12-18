@@ -8,7 +8,7 @@ export class AsciiDocModule {
     private asciidoctor = require('asciidoctor')();
     private adocDir = path.resolve(path.join('public', 'adoc'));
 
-    public getStandardArticle(pageTitle: string): Observable<string> {
+    public getStandardArticle(pageTitle: string): Observable<any> {
         return new Observable((observer) => {
             const confDriven = fs.existsSync(path.join(this.adocDir, pageTitle));
 
@@ -22,7 +22,7 @@ export class AsciiDocModule {
                 })
             } else {
                 this.readStandardAdoc(path.join(this.adocDir, `${pageTitle}.adoc`)).subscribe(html => {
-                    observer.next(html);
+                    observer.next({html});
                 }, error => {
                     observer.error(error);
                 }, () => {

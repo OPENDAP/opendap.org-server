@@ -80,7 +80,7 @@ export class HyraxModule {
                         'error-text': err
                     });
                 } else {
-                    const hyraxVersion = version === -1 ? files.sort()[files.length - 1] : `Hyrax_${version}`;
+                    const hyraxVersion = version === -1 ? files.sort()[files.length - 1] : `${version}`;
 
                     this.getSpecificVersion(`${hyraxVersion}`).subscribe(response => {
                         observer.next(response);

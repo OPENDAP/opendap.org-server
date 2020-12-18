@@ -4,7 +4,7 @@ const showdown = require('showdown');
 const converter = new showdown.Converter();
 
 const sitePath = path.resolve(path.join('public', 'site'));
-const faqPath = path.resolve(path.join('public', 'site', 'support', 'faq')); 
+const faqPath = path.resolve(path.join('public', 'support', 'faq')); 
 
 /**
  * Processes a markdown file by splitting the title out of the document
@@ -54,32 +54,30 @@ module.exports = {
             res.status(200).send(toReturn);
         } else {
             const confPath = path.join(sitePath, pageID, `${pageID}.config.json`);
+            const exists = fs.existsSync(confPath);
 
-            fs.exists(confPath, (exists) => {
-                if (exists) {
-                    fs.readFile(confPath, 'utf8', (err, data) => {
-                        data = JSON.parse(data);
+            if (exists) {
+                fs.readFile(confPath, 'utf8', (err, data) => {
+                    data = JSON.parse(data);
 
-                        for (let section of data.sections) {
-                            if (section.sectionType === "standard") {
-                                section.parsedFile = processMarkdownFile(
-                                    fs.readFileSync(path.join(data.root, section.filename), 'utf8'));
-                            } else if (section.sectionType === "tabbed") {
-                                for (let thisTab of section.tabs) {
-                                    thisTab.parsedFile = processMarkdownFile(
-                                        fs.readFileSync(path.join(data.root, thisTab.filename), 'utf8'));
-                                }
+                    for (let section of data.sections) {
+                        if (section.sectionType === "standard") {
+                            section.parsedFile = processMarkdownFile(
+                                fs.readFileSync(path.join(data.root, section.filename), 'utf8'));
+                        } else if (section.sectionType === "tabbed") {
+                            for (let thisTab of section.tabs) {
+                                thisTab.parsedFile = processMarkdownFile(
+                                    fs.readFileSync(path.join(data.root, thisTab.filename), 'utf8'));
                             }
                         }
+                    }
 
-                        res.status(200).send(data);
-                    });
-                } else {
-                    res.status(404).send({
-                        error: 'Configuration file not found.'
-                    });
-                }
-            });
+                    res.status(200).send(data);
+                });
+            } else {
+                res.status(404).send({error: 'Configuration file not found.'
+                });
+            }
         }
     },
     getFaqArticle: function (req, res) {

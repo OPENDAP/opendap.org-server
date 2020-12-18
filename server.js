@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var asciidoc_1 = require("./js/asciidoc");
 var hyrax_1 = require("./js/hyrax");
+var markdown_1 = require("./js/markdown");
 var express = require("express");
 var http = require("http");
 var path = require("path");
@@ -14,6 +15,7 @@ app.use(express.static(__dirname + '/public'));
 // AsciiDoc
 var asciiDocModule = new asciidoc_1.AsciiDocModule();
 var hyraxModule = new hyrax_1.HyraxModule();
+var markdownModule = new markdown_1.MarkdownModule();
 app.get('/api/adoc/:pageTitle', function (req, res) {
     asciiDocModule.getStandardArticle(req.params['pageTitle']).subscribe(function (response) {
         res.status(200).send(response);
@@ -23,7 +25,13 @@ app.get('/api/adoc/:pageTitle', function (req, res) {
 });
 // Legacy markdown
 // app.get('/api/content/:pageTitle', (req, res) => markdown.getPageByTitle(req, res));
-// app.get('/api/content/faq/:articleTitle', (req, res) => markdown.getFaqArticle(req, res));
+app.get('/api/content/faq/:articleTitle', function (req, res) {
+    markdownModule.getFaqArticle(req.params['articleTitle']).subscribe(function (response) {
+        res.status(200).send(response);
+    }, function (error) {
+        res.status(error.errorCode).send(error);
+    });
+});
 // Hyrax
 app.get('/api/versions', function (req, res) {
     hyraxModule.getAllVersions().subscribe(function (response) {
@@ -53,6 +61,6 @@ app.get('/api/versions/:version', function (req, res) {
 // Routing
 app.get('', function (req, res) { return res.sendFile(path.resolve('./dist/website/index.html')); });
 app.all('*', function (req, res) { return res.status(200).sendFile(path.resolve('./dist/website/index.html')); });
-http.createServer(app).listen(3001, function () {
-    console.log('Server running on port 3001.');
+http.createServer(app).listen(process.env.PORT || 3001, function () {
+    console.log("Server running on port " + (process.env.PORT || 3001) + ".");
 });

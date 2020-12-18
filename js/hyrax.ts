@@ -75,18 +75,18 @@ export class HyraxModule {
             fs.readdir(this.hyraxDir, (err, files) => {
                 if (err) {
                     observer.error({
-                        'error': 'Unable to get latest Hyrax version.',
+                        'error': `Unable to read ${version === -1 ? 'latest' : ''} Hyrax version.`,
                         'errorCode': 404,
                         'error-text': err
                     });
                 } else {
-                    const hyraxVersion = version === -1 ? files.sort()[files.length - 1] : version;
+                    const hyraxVersion = version === -1 ? files.sort()[files.length - 1] : `Hyrax_${version}`;
 
-                    this.getSpecificVersion(`Hyrax_${version}`).subscribe(response => {
+                    this.getSpecificVersion(`${hyraxVersion}`).subscribe(response => {
                         observer.next(response);
                     }, error => {
                         observer.error({
-                            'error': 'Unable to read latest Hyrax version.',
+                            'error': `Unable to read ${version === -1 ? 'latest' : ''} Hyrax version.`,
                             'errorCode': 404,
                             'error-text': error
                         });

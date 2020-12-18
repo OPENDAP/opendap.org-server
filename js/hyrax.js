@@ -75,18 +75,18 @@ var HyraxModule = /** @class */ (function () {
             fs.readdir(_this.hyraxDir, function (err, files) {
                 if (err) {
                     observer.error({
-                        'error': 'Unable to get latest Hyrax version.',
+                        'error': "Unable to read " + (version === -1 ? 'latest' : '') + " Hyrax version.",
                         'errorCode': 404,
                         'error-text': err
                     });
                 }
                 else {
-                    var hyraxVersion = version === -1 ? files.sort()[files.length - 1] : version;
-                    _this.getSpecificVersion("Hyrax_" + version).subscribe(function (response) {
+                    var hyraxVersion = version === -1 ? files.sort()[files.length - 1] : "Hyrax_" + version;
+                    _this.getSpecificVersion("" + hyraxVersion).subscribe(function (response) {
                         observer.next(response);
                     }, function (error) {
                         observer.error({
-                            'error': 'Unable to read latest Hyrax version.',
+                            'error': "Unable to read " + (version === -1 ? 'latest' : '') + " Hyrax version.",
                             'errorCode': 404,
                             'error-text': error
                         });

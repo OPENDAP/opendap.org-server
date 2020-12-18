@@ -1,5 +1,6 @@
 import { AsciiDocModule } from './js/asciidoc';
 import { HyraxModule } from './js/hyrax';
+import { MarkdownModule } from './js/markdown';
 
 import express = require('express');
 import http = require('http');
@@ -17,6 +18,7 @@ app.use(express.static(__dirname + '/public'));
 
 const asciiDocModule = new AsciiDocModule();
 const hyraxModule = new HyraxModule();
+const markdownModule = new MarkdownModule();
 
 app.get('/api/adoc/:pageTitle', (req, res) => {
     asciiDocModule.getStandardArticle(req.params['pageTitle']).subscribe(response => {
@@ -29,7 +31,13 @@ app.get('/api/adoc/:pageTitle', (req, res) => {
 // Legacy markdown
 
 // app.get('/api/content/:pageTitle', (req, res) => markdown.getPageByTitle(req, res));
-// app.get('/api/content/faq/:articleTitle', (req, res) => markdown.getFaqArticle(req, res));
+app.get('/api/content/faq/:articleTitle', (req, res) => {
+    markdownModule.getFaqArticle(req.params['articleTitle']).subscribe(response => {
+        res.status(200).send(response);
+    }, error => {
+        res.status(error.errorCode).send(error);
+    });
+});
 
 // Hyrax
 
@@ -66,6 +74,6 @@ app.get('/api/versions/:version', (req, res) => {
 app.get('', (req, res) => res.sendFile(path.resolve('./dist/website/index.html')));
 app.all('*', (req, res) => res.status(200).sendFile(path.resolve('./dist/website/index.html')));
 
-http.createServer(app).listen(3001, () => {
-    console.log('Server running on port 3001.')
+http.createServer(app).listen(process.env.PORT || 3001, () => {
+    console.log(`Server running on port ${process.env.PORT || 3001}.`)
 });

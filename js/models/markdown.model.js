@@ -11,9 +11,11 @@ var MarkdownModel = /** @class */ (function () {
     * and converting the body to HTML with showdown.
     * @param {string} md The markdown file to be processed.
     */
-    function MarkdownModel(rawMd, id) {
+    function MarkdownModel(url, rawMd, id) {
         if (id === void 0) { id = 0; }
         this.converter = new showdown_1.default.Converter();
+        this.url = url;
+        console.log(url);
         var split = rawMd.split("\n")[0];
         var md = rawMd.substring(split.length + 3, rawMd.length);
         var tags = rawMd.split("##TAGS##");

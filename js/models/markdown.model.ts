@@ -2,6 +2,7 @@ import showdown from 'showdown';
 
 export class MarkdownModel {
     title: string;
+    url: string;
     md: string;
     id: number;
     tags: string[];
@@ -13,7 +14,10 @@ export class MarkdownModel {
     * and converting the body to HTML with showdown.
     * @param {string} md The markdown file to be processed.
     */
-    constructor(rawMd: string, id = 0) {
+    constructor(url: string, rawMd: string, id = 0) {
+        this.url = url;
+        console.log(url);
+
         let split = rawMd.split("\n")[0];
         let md = rawMd.substring(split.length + 3, rawMd.length);
         let tags = rawMd.split("##TAGS##");

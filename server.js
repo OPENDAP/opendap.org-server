@@ -24,7 +24,13 @@ app.get('/api/adoc/:pageTitle', function (req, res) {
     });
 });
 // Legacy markdown
-// app.get('/api/content/:pageTitle', (req, res) => markdown.getPageByTitle(req, res));
+app.get('/api/content/faq', function (req, res) {
+    markdownModule.getFaq().subscribe(function (response) {
+        res.status(200).send(response);
+    }, function (error) {
+        res.status(error.errorCode).send(error);
+    });
+});
 app.get('/api/content/faq/:articleTitle', function (req, res) {
     markdownModule.getFaqArticle(req.params['articleTitle']).subscribe(function (response) {
         res.status(200).send(response);

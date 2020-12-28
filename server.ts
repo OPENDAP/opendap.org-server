@@ -30,7 +30,13 @@ app.get('/api/adoc/:pageTitle', (req, res) => {
 
 // Legacy markdown
 
-// app.get('/api/content/:pageTitle', (req, res) => markdown.getPageByTitle(req, res));
+app.get('/api/content/faq', (req, res) => {
+    markdownModule.getFaq().subscribe(response => {
+        res.status(200).send(response)
+    }, error => {
+        res.status(error.errorCode).send(error);
+    });
+});
 app.get('/api/content/faq/:articleTitle', (req, res) => {
     markdownModule.getFaqArticle(req.params['articleTitle']).subscribe(response => {
         res.status(200).send(response);

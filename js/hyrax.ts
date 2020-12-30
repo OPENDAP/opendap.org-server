@@ -5,6 +5,7 @@ import { HyraxVersionList } from './models/hyrax-version-list.model';
 
 import fs = require('fs');
 import path = require('path');
+import jsdom = require('jsdom');
 
 export class HyraxModule {
 
@@ -91,6 +92,25 @@ export class HyraxModule {
                             'error-text': error
                         });
                     });
+                }
+            });
+        });
+    }
+
+    public getGuide(): Observable<any> {
+        const hyraxGuide = path.resolve(path.join('hyrax_guide', 'Master_Hyrax_Guide.html'));
+
+        return new Observable(observer => {
+            fs.readFile(hyraxGuide, 'utf8', (error, data) => {
+                if (error) {
+                    observer.error({
+                        'error': `Unable to read Hyrax guide.`,
+                        'errorCode': 404,
+                        'error-text': error
+                    })
+                } else {
+                    observer.next({data});
+                    observer.complete();
                 }
             });
         });

@@ -95,6 +95,24 @@ var HyraxModule = /** @class */ (function () {
             });
         });
     };
+    HyraxModule.prototype.getGuide = function () {
+        var hyraxGuide = path.resolve(path.join('hyrax_guide', 'Master_Hyrax_Guide.html'));
+        return new rxjs_1.Observable(function (observer) {
+            fs.readFile(hyraxGuide, 'utf8', function (error, data) {
+                if (error) {
+                    observer.error({
+                        'error': "Unable to read Hyrax guide.",
+                        'errorCode': 404,
+                        'error-text': error
+                    });
+                }
+                else {
+                    observer.next({ data: data });
+                    observer.complete();
+                }
+            });
+        });
+    };
     return HyraxModule;
 }());
 exports.HyraxModule = HyraxModule;

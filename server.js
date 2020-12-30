@@ -60,6 +60,14 @@ app.get('/api/versions/:version', function (req, res) {
         res.status(error.errorCode).send(error);
     });
 });
+// Hyrax Guide
+app.get('/api/hyrax/guide', function (req, res) {
+    hyraxModule.getGuide().subscribe(function (response) {
+        res.status(200).send(response);
+    }, function (error) {
+        res.status(error.errorCode).send(error);
+    });
+});
 // Jira
 // app.get('/api/jira/:issue', (req, res) => jira.getIssue(req, res));
 // app.get('/api/jira/HK/versions', (req, res) => jira.getFixVersions(res));

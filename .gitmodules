@@ -1,0 +1,3 @@
+[submodule "hyrax_guide"]
+	path = hyrax_guide
+	url = https://github.com/OPENDAP/hyrax_guide.git

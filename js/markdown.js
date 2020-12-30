@@ -1,102 +1,61 @@
-const path = require('path');
-const fs = require('fs');
-const showdown = require('showdown');
-const converter = new showdown.Converter();
-
-const sitePath = path.resolve(path.join('public', 'site'));
-const faqPath = path.resolve(path.join('public', 'site', 'support', 'faq')); 
-
-/**
- * Processes a markdown file by splitting the title out of the document
- * and converting the body to HTML with showdown.
- * @param {string} md The markdown file to be processed.
- */
-function processMarkdownFile(md, id = 0) {
-    let split = md.split("\n")[0];
-    let title = split.substring(2, split.length - 1);
-    let mds = md.substring(split.length + 3, md.length);
-    let tags = md.split("##TAGS##");
-
-    if (tags.length == 2) {
-        mds = tags[0].substring(split.length + 3, md.length);;
-        tags = tags[1].substr(2, tags[1].length).split(",");
-    } else {
-        tags = [];
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MarkdownModule = void 0;
+var rxjs_1 = require("rxjs");
+var markdown_model_1 = require("./models/markdown.model");
+var path = require("path");
+var fs = require("fs");
+var MarkdownModule = /** @class */ (function () {
+    function MarkdownModule() {
+        this.faqPath = path.resolve(path.join('public', 'support', 'faq'));
     }
-
-    return ({
-        title: title,
-        md: converter.makeHtml(mds),
-        id: title.replace(/ /g, "-").toLowerCase(),
-        tags: tags
-    });
-}
-
-module.exports = {
-    getPageByTitle: function (req, res) {
-        const pageID = req.params['pageTitle'];
-
-        if (pageID === 'faq') {
-            let files = fs.readdirSync(faqPath);
-            let toReturn = [];
-
-            for (const thisDir of files) {
-                let thisFAQSection = [];
-
-                for (const thisFAQ of fs.readdirSync(path.join(faqPath, thisDir))) {
-                    let faqSection = fs.readFileSync(path.join(faqPath, thisDir, thisFAQ), 'utf8');
-                    thisFAQSection.push(processMarkdownFile(faqSection));
+    MarkdownModule.prototype.getFaq = function () {
+        var _this = this;
+        return new rxjs_1.Observable(function (observer) {
+            var files = fs.readdirSync(_this.faqPath);
+            var articles = {};
+            for (var _i = 0, files_1 = files; _i < files_1.length; _i++) {
+                var thisDir = files_1[_i];
+                var faqTitle = thisDir.includes('_') ? thisDir.substring(3).replace('-', ' ') : thisDir;
+                var thisFAQSection = [];
+                for (var _a = 0, _b = fs.readdirSync(path.join(_this.faqPath, thisDir)); _a < _b.length; _a++) {
+                    var thisFAQ = _b[_a];
+                    var faqSection = fs.readFileSync(path.join(_this.faqPath, thisDir, thisFAQ), 'utf8');
+                    thisFAQSection.push(new markdown_model_1.MarkdownModel(thisFAQ.substring(0, thisFAQ.length - 3), faqSection));
                 }
-
-                toReturn.push(thisFAQSection);
+                articles[faqTitle] = thisFAQSection;
             }
-
-            res.status(200).send(toReturn);
-        } else {
-            const confPath = path.join(sitePath, pageID, `${pageID}.config.json`);
-
-            fs.exists(confPath, (exists) => {
-                if (exists) {
-                    fs.readFile(confPath, 'utf8', (err, data) => {
-                        data = JSON.parse(data);
-
-                        for (let section of data.sections) {
-                            if (section.sectionType === "standard") {
-                                section.parsedFile = processMarkdownFile(
-                                    fs.readFileSync(path.join(data.root, section.filename), 'utf8'));
-                            } else if (section.sectionType === "tabbed") {
-                                for (let thisTab of section.tabs) {
-                                    thisTab.parsedFile = processMarkdownFile(
-                                        fs.readFileSync(path.join(data.root, thisTab.filename), 'utf8'));
-                                }
-                            }
+            observer.next(articles);
+            observer.complete();
+        });
+    };
+    MarkdownModule.prototype.getFaqArticle = function (articleTitle) {
+        var _this = this;
+        return new rxjs_1.Observable(function (observer) {
+            var fileName = articleTitle + ".md";
+            fs.readdir(_this.faqPath, function (err, files) {
+                if (err) {
+                    observer.error({
+                        'error': "Unable to load " + articleTitle + ".",
+                        "errorCode": 404,
+                        'error-text': err
+                    });
+                }
+                else {
+                    for (var _i = 0, files_2 = files; _i < files_2.length; _i++) {
+                        var thisDir = files_2[_i];
+                        var faqSection = fs.readdirSync(path.join(_this.faqPath, thisDir));
+                        if (faqSection.includes(fileName)) {
+                            var file = fs.readFileSync(path.join(_this.faqPath, thisDir, fileName), 'utf8');
+                            observer.next(new markdown_model_1.MarkdownModel(articleTitle, file));
+                            break;
                         }
-
-                        res.status(200).send(data);
-                    });
-                } else {
-                    res.status(404).send({
-                        error: 'Configuration file not found.'
-                    });
+                    }
+                    observer.unsubscribe();
                 }
             });
-        }
-    },
-    getFaqArticle: function (req, res) {
-        let fileName = `${req.params['articleTitle']}.md`;
-
-        let files = fs.readdirSync(faqPath);
-
-        for (const thisDir of files) {
-
-            let faqSection = fs.readdirSync(path.join(faqPath, thisDir));
-
-            if (faqSection.includes(fileName)) {
-                let file = fs.readFileSync(path.join(faqPath, thisDir, fileName), 'utf8');
-                res.status(200).send(processMarkdownFile(file));
-            }
-        }
-
-        res.status(404).send("Not found");
-    }
-}
+        });
+    };
+    return MarkdownModule;
+}());
+exports.MarkdownModule = MarkdownModule;

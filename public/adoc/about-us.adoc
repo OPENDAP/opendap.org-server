@@ -1,12 +1,31 @@
-== About OPeNDAP
+== About Us
 
-OPeNDAP stands for "Open-source Project for a Network Data Access Protocol"
+OPeNDAP is a not-for-profit corporation that was formed back in 2000. Our goal is to develop technologies
+that benefit many disciplines (not limited to oceanography, which is where we had our start), and that will also
+facilitate access to and sharing of a wide variety of scientific data. To this end, we have developed
+the DAP: a discipline-neutral Data Access Protocol. The DAP provides a simple and flexible web API
+for data access and subsetting.
 
-OPeNDAP is both the name of a non-profit organization and the commonly-used name of a protocol which the OPeNDAP organization has developed. The DAP2 protocol provides a discipline-neutral means of requesting and providing data across the World Wide Web. The goal is to allow end users, whoever they may be, to access immediately whatever data they require in a form they can use, all while using applications they already possess and are familiar with.
+As an organization, we provide a few things:
 
-In the field of oceanography, OPeNDAP has already helped the research community make significant progress towards this end. Ultimately, it is hoped, OPeNDAP will be a fundamental component of systems which provide machine-to-machine interoperability with semantic meaning in a highly distributed environment of heterogeneous datasets.
+* A *data server* that you can use to make your data available via standard network protocols.
+* Various *toolkits* that enable access to your server's data by just about any software written in Pyton, C, C++, or Java. 
+* Several *analysis tools*, including commercial tools, such as Matlab and ArcGIS, and open-source tools,
+such as Jupyter notebooks and Panoply.
 
-The OPeNDAP organization exists to develop, implement, and promulgate the OPeNDAP protocol. It presents the results of its work freely to the public with the hope that it will be of service in many disciplines and facilitate sharing of and access to their data streams.
+While we present the results of our work freely to the public in the form of open source
+documentation, specifications, and software, we also offer our services as contractors.
+Over the last few decades, we've worked with several groups, including Unidata, NOAA, and Python,
+to help them develop implementations of our protocol that are tailored to their data.
+These groups have created their own data servers and client tools,
+thereby expanding the reach of our core technology.
+
+Ultimately, our goal is to make the OPeNDAP technology a core component of systems 
+that provide machine-to-machine interoperability with semantic meaning in a highly distributed environment
+of diverse datasets. In other words, our technology allows you to immediately access data that you require
+in a form that you can use, from within your own applications.
+In the fields of oceanography and atmospheric science,
+we've already helped the research community make significant progress towards this end.
 
 == Corporate Officers
 

@@ -67,15 +67,21 @@ var AsciiDocModule = /** @class */ (function () {
                     var conf = JSON.parse(data);
                     if (conf.sections) {
                         conf.sections.forEach(function (section) {
-                            if (section.sectionType === 'standard') {
-                                var file = fs.readFileSync(path.join(_this.adocDir, pageTitle, section.filename), 'utf8');
-                                section.parsedFile = _this.asciidoctor.convert(file);
-                            }
-                            else if (section.sectionType === 'tabbed') {
-                                section.tabs.forEach(function (tab) {
-                                    var file = fs.readFileSync(path.join(_this.adocDir, pageTitle, tab.filename), 'utf8');
-                                    tab.parsedFile = _this.asciidoctor.convert(file);
-                                });
+                            var file;
+                            switch (section.sectionType) {
+                                case ('standard'):
+                                    file = fs.readFileSync(path.join(_this.adocDir, pageTitle, section.filename), 'utf8');
+                                    section.parsedFile = _this.asciidoctor.convert(file);
+                                    break;
+                                case ('tabbed'):
+                                    section.tabs.forEach(function (tab) {
+                                        var file = fs.readFileSync(path.join(_this.adocDir, pageTitle, tab.filename), 'utf8');
+                                        tab.parsedFile = _this.asciidoctor.convert(file);
+                                    });
+                                    break;
+                                case ('gallery'):
+                                    section.parsedFile = JSON.parse(fs.readFileSync(path.join(_this.adocDir, pageTitle, section.filename), 'utf8'));
+                                    break;
                             }
                         });
                         observer.next(conf);

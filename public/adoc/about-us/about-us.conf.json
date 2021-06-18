@@ -1,0 +1,17 @@
+{
+    "sections": [
+        {
+            "sectionType": "standard",
+            "title": "About Us",
+            "id": "about-us",
+            "filename": "01_about-us.adoc",
+            "parsedFile": ""
+        },
+        {
+            "sectionType": "gallery",
+            "title": "Our Team",
+            "id": "our-team",
+            "filename": "02_our-team.json"
+        }
+    ]
+}

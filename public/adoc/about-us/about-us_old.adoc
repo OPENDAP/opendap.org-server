@@ -14,7 +14,8 @@ and open source (Jupyter notebooks and Panoply).
 
 While we present the results of our work freely to the public in the form of open source
 documentation, specifications, and software, we also offer our services as contractors.
-Over the last two decades, we've worked with several agencies, groups, programs, and organizations, including Unidata, NOAA, and Python,
+Over the last two decades, we've worked with several agencies, groups, programs, and organizations,
+including NASA, DataCube, Unidata, NOAA, OGC, and Python,
 to help them develop implementations of our protocol that are tailored to their data.
 These groups have created their own data servers and client tools,
 thereby expanding the reach of our core technology.

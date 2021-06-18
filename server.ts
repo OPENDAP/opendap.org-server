@@ -79,6 +79,20 @@ app.get('/api/hyrax/guide', (req, res) => {
     });
 })
 
+// Images
+
+app.use('/images', express.static(path.resolve(path.join('public', 'images'))));
+
+// app.get('/api/image/:imageName', (req, res) => {
+
+//     hyraxModule.getGuide().subscribe(response => {
+//       res.status(200).send(response);
+//     }, error => {
+//       res.status(error.errorCode).send(error);
+//     });
+// })
+
+
 // Jira
 
 // app.get('/api/jira/:issue', (req, res) => jira.getIssue(req, res));

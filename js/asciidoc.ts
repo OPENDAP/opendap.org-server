@@ -64,17 +64,25 @@ export class AsciiDocModule {
     
                     if (conf.sections) {
                         conf.sections.forEach((section: any) => {
-                            if (section.sectionType === 'standard') {
-                                const file = fs.readFileSync(path.join(this.adocDir, pageTitle, section.filename), 'utf8');
-                                section.parsedFile = this.asciidoctor.convert(file)
-                            } else if (section.sectionType === 'tabbed') {
-                                section.tabs.forEach((tab: any) => {
-                                    const file = fs.readFileSync(path.join(this.adocDir, pageTitle, tab.filename), 'utf8');
-                                    tab.parsedFile = this.asciidoctor.convert(file)
-                                });
+                            let file;
+
+                            switch (section.sectionType) {
+                                case ('standard'):
+                                    file = fs.readFileSync(path.join(this.adocDir, pageTitle, section.filename), 'utf8');
+                                    section.parsedFile = this.asciidoctor.convert(file)
+                                    break;
+                                case ('tabbed'):
+                                    section.tabs.forEach((tab: any) => {
+                                        const file = fs.readFileSync(path.join(this.adocDir, pageTitle, tab.filename), 'utf8');
+                                        tab.parsedFile = this.asciidoctor.convert(file)
+                                    });
+                                    break;
+                                case ('gallery'):
+                                    section.parsedFile = JSON.parse(fs.readFileSync(path.join(this.adocDir, pageTitle, section.filename), 'utf8'));
+                                    break;
                             }
                         });
-    
+
                         observer.next(conf);
                     } else {
                         observer.error({

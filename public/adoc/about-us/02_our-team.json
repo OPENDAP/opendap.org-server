@@ -1,0 +1,40 @@
+{
+    "gallery": [
+        {
+            "title": "Dave Fulker",
+            "subTitle": "Board Chair<br>President Emeritus",
+            "imageURL": "/images/fulker.jpg"
+        },
+        {
+            "title": "James Gallagher",
+            "subTitle": "President",
+            "imageURL": "/images/gallagher.jpg"
+        },
+        {
+            "title": "Dan Holloway",
+            "subTitle": "Treasurer",
+            "imageURL": "/images/holloway.jpg"
+        },
+        {
+            "title": "Nathan Potter",
+            "subTitle": "Senior Software<br>Engineer",
+            "imageURL": "/images/potter.jpg"
+        },
+        {
+            "title": "Kodi Neumiller",
+            "subTitle": "Software Engineer",
+            "imageURL": "/images/neumiller.jpg"
+        },
+        {
+            "title": "Sam Lloyd",
+            "subTitle": "Software Engineer",
+            "imageURL": "/images/lloyd.jpg"
+        },
+        {
+            "title": "Alexander Porrello",
+            "subTitle": "Web Developer<br>Technical Writer",
+            "imageURL": "/images/porrello.jpg"
+        }
+
+    ]
+}

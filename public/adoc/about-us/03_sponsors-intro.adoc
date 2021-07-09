@@ -1,0 +1,8 @@
+As we mentioned above, OPeNDAP is a not-for-profit corporation (a 501(c)(3), to be precise),
+so we do contribute our work freely to the public. That being said, the work does
+consume our fully-dedicated time and attention.
+
+We are supported in our efforts by a number of governmental and private institutions.
+This support takes the form of grants, contracts, products and services, and donations.
+Please find here a list of our supporters, to whom we owe our ability to continue to provide
+software and services to the members of our user community.

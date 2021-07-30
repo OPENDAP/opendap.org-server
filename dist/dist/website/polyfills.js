@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/alexporrello/GitLab/opendap/opendap.org/src/polyfills.ts */"hN/g");
+module.exports = __webpack_require__(/*! /home/alexporrello/GitLab/opendap.org/opendap.org/src/polyfills.ts */"hN/g");
 
 
 /***/ }),

@@ -11,7 +11,7 @@ import path = require('path');
 // const markdown = require('./js/markdown');
 
 const app = express();
-app.use(express.static(__dirname + '/dist/website'));
+app.use(express.static(__dirname + '/website'));
 app.use(express.static(__dirname + '/public'));
 
 // AsciiDoc
@@ -101,8 +101,8 @@ app.use('/images', express.static(path.resolve(path.join('public', 'images'))));
 
 // Routing
 
-app.get('', (req, res) => res.sendFile(path.resolve('./dist/website/index.html')));
-app.all('*', (req, res) => res.status(200).sendFile(path.resolve('./dist/website/index.html')));
+// app.get('', function (req, res) { return res.status(200).sendFile(path.join(__dirname, 'website', 'index.html')); });
+app.all('*', function (req, res) { return res.status(200).sendFile(path.join(__dirname, 'website', 'index.html')); });
 
 http.createServer(app).listen(process.env.PORT || 3001, () => {
     console.log(`Server running on port ${process.env.PORT || 3001}.`)

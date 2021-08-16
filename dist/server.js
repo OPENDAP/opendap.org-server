@@ -10,7 +10,7 @@ var path = require("path");
 // const hyrax = require('./js/hyrax');
 // const markdown = require('./js/markdown');
 var app = express();
-app.use(express.static(__dirname + '/dist/website'));
+app.use(express.static(__dirname + '/website'));
 app.use(express.static(__dirname + '/public'));
 // AsciiDoc
 var asciiDocModule = new asciidoc_1.AsciiDocModule();
@@ -82,8 +82,8 @@ app.use('/images', express.static(path.resolve(path.join('public', 'images'))));
 // app.get('/api/jira/HK/versions', (req, res) => jira.getFixVersions(res));
 // app.get('/api/jira/HK/versions/:fixVersionID', (req, res) => jira.getFixVersionByID(req, res));
 // Routing
-app.get('', function (req, res) { return res.sendFile(path.resolve('./dist/website/index.html')); });
-app.all('*', function (req, res) { return res.status(200).sendFile(path.resolve('./dist/website/index.html')); });
+// app.get('', function (req, res) { return res.status(200).sendFile(path.join(__dirname, 'website', 'index.html')); });
+app.all('*', function (req, res) { return res.status(200).sendFile(path.join(__dirname, 'website', 'index.html')); });
 http.createServer(app).listen(process.env.PORT || 3001, function () {
     console.log("Server running on port " + (process.env.PORT || 3001) + ".");
 });

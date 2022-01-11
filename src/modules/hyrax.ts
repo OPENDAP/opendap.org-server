@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 
-import { AllVersionFiles } from './models/hyrax-version.model';
-import { HyraxVersionList } from './models/hyrax-version-list.model';
+import { AllVersionFiles } from '../models/hyrax-version.model';
+import { HyraxVersionList } from '../models/hyrax-version-list.model';
 
 import fs = require('fs');
 import path = require('path');

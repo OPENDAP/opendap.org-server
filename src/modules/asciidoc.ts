@@ -6,11 +6,11 @@ import fs = require('fs');
 export class AsciiDocModule {
 
     private asciidoctor = require('asciidoctor')();
-    private adocDir = path.resolve(path.join('public', 'adoc'));
+    private adocDir = path.resolve('public', 'adoc');
 
     public getStandardArticle(pageTitle: string): Observable<any> {
         return new Observable((observer) => {
-            const confDriven = fs.existsSync(path.join(this.adocDir, pageTitle));
+            const confDriven = fs.existsSync(path.resolve(this.adocDir, pageTitle));
 
             if (confDriven) {
                 this.readAdocConf(pageTitle).subscribe(conf => {
@@ -21,7 +21,7 @@ export class AsciiDocModule {
                     observer.unsubscribe();
                 })
             } else {
-                this.readStandardAdoc(path.join(this.adocDir, `${pageTitle}.adoc`)).subscribe(html => {
+                this.readStandardAdoc(path.resolve(this.adocDir, `${pageTitle}.adoc`)).subscribe(html => {
                     observer.next({html});
                 }, error => {
                     observer.error(error);
@@ -52,7 +52,7 @@ export class AsciiDocModule {
 
     public readAdocConf(pageTitle: string): Observable<string> {
         return new Observable((observer) => {
-            fs.readFile(path.join(this.adocDir, pageTitle, `${pageTitle}.conf.json`), 'utf8', (err, data) => {
+            fs.readFile(path.resolve(this.adocDir, pageTitle, `${pageTitle}.conf.json`), 'utf8', (err, data) => {
                 if (err) {
                     observer.error({
                         'error': 'Unable to load page data',
@@ -68,17 +68,17 @@ export class AsciiDocModule {
 
                             switch (section.sectionType) {
                                 case ('standard'):
-                                    file = fs.readFileSync(path.join(this.adocDir, pageTitle, section.filename), 'utf8');
+                                    file = fs.readFileSync(path.resolve(this.adocDir, pageTitle, section.filename), 'utf8');
                                     section.parsedFile = this.asciidoctor.convert(file)
                                     break;
                                 case ('tabbed'):
                                     section.tabs.forEach((tab: any) => {
-                                        const file = fs.readFileSync(path.join(this.adocDir, pageTitle, tab.filename), 'utf8');
+                                        const file = fs.readFileSync(path.resolve(this.adocDir, pageTitle, tab.filename), 'utf8');
                                         tab.parsedFile = this.asciidoctor.convert(file)
                                     });
                                     break;
                                 case ('gallery'):
-                                    section.parsedFile = JSON.parse(fs.readFileSync(path.join(this.adocDir, pageTitle, section.filename), 'utf8'));
+                                    section.parsedFile = JSON.parse(fs.readFileSync(path.resolve(this.adocDir, pageTitle, section.filename), 'utf8'));
                                     break;
                             }
                         });

@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 
-import { MarkdownModel } from './models/markdown.model';
+import { MarkdownModel } from '../models/markdown.model';
 
 import path = require('path');
 import fs = require('fs');

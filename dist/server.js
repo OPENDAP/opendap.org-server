@@ -1,14 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var asciidoc_1 = require("./js/asciidoc");
-var hyrax_1 = require("./js/hyrax");
-var markdown_1 = require("./js/markdown");
+var asciidoc_1 = require("./src/modules/asciidoc");
+var hyrax_1 = require("./src/modules/hyrax");
+var markdown_1 = require("./src/modules/markdown");
 var express = require("express");
 var http = require("http");
 var path = require("path");
-// const jira = require('./js/jira');
-// const hyrax = require('./js/hyrax');
-// const markdown = require('./js/markdown');
 var app = express();
 app.use(express.static(__dirname + '/website'));
 app.use(express.static(__dirname + '/public'));

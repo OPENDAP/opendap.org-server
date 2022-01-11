@@ -1,14 +1,10 @@
-import { AsciiDocModule } from './js/asciidoc';
-import { HyraxModule } from './js/hyrax';
-import { MarkdownModule } from './js/markdown';
+import { AsciiDocModule } from './src/modules/asciidoc';
+import { HyraxModule } from './src/modules/hyrax';
+import { MarkdownModule } from './src/modules/markdown';
 
 import express = require('express');
 import http = require('http');
 import path = require('path');
-
-// const jira = require('./js/jira');
-// const hyrax = require('./js/hyrax');
-// const markdown = require('./js/markdown');
 
 const app = express();
 app.use(express.static(__dirname + '/website'));

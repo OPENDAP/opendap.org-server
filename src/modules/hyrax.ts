@@ -1,5 +1,7 @@
 import { Observable } from 'rxjs';
 
+import { Links } from '../classes/utils';
+
 import { AllVersionFiles } from '../models/hyrax-version.model';
 import { HyraxVersionList } from '../models/hyrax-version-list.model';
 
@@ -9,7 +11,7 @@ import jsdom = require('jsdom');
 
 export class HyraxModule {
 
-    private hyraxDir = path.resolve(path.join('public', 'Hyrax'));
+    constructor() { }
 
     /**
      * Returns a specific version of Hyrax data from the server.
@@ -18,7 +20,7 @@ export class HyraxModule {
      */
     private getSpecificVersion(requestedVersion: string): Observable<any> {
         return new Observable(observer => {
-            const versionPath = path.join(this.hyraxDir, requestedVersion);
+            const versionPath = path.join(Links.hyrax, requestedVersion);
 
             fs.readdir(versionPath, (err, files) => {
                 if (err) {
@@ -31,7 +33,7 @@ export class HyraxModule {
                     const allVersionFiles = new AllVersionFiles(requestedVersion);
 
                     for (let file of files) {
-                        let thisFile: string = fs.readFileSync(path.join(this.hyraxDir, requestedVersion, file), 'utf8');
+                        let thisFile: string = fs.readFileSync(path.join(Links.hyrax, requestedVersion, file), 'utf8');
 
                         if (file.includes("download")) {
                             let sections = thisFile.split("#SPLIT#");
@@ -54,7 +56,7 @@ export class HyraxModule {
 
     public getAllVersions(): Observable<HyraxVersionList> {
         return new Observable(observer => {
-            fs.readdir(this.hyraxDir, (err, files) => {
+            fs.readdir(Links.hyrax, (err, files) => {
                 if (err) {
                     observer.error({
                         'error': 'Unable to get Hyrax versions.',
@@ -73,7 +75,7 @@ export class HyraxModule {
     /** @todo all stuff should be parsed server-side */
     public getVersion(version: number | string): Observable<any> {
         return new Observable(observer => {
-            fs.readdir(this.hyraxDir, (err, files) => {
+            fs.readdir(Links.hyrax, (err, files) => {
                 if (err) {
                     observer.error({
                         'error': `Unable to read ${version === -1 ? 'latest' : ''} Hyrax version.`,

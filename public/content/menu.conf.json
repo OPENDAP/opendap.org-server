@@ -1,0 +1,34 @@
+{
+  "menu": [
+    {
+      "name": "Software",
+      "menuItems": [
+        {
+          "name": "Software Home",
+          "link": "software"
+        },
+        {
+          "name": "Hyrax",
+          "link": "hyrax"
+        }
+      ]
+    },
+    {
+      "name": "Support",
+      "menuItems": [
+        {
+          "name": "Support Home",
+          "link": "support"
+        },
+        {
+          "name": "FAQ",
+          "link": "faq"
+        }
+      ]
+    },
+    {
+      "name": "About Us",
+      "link": "about-us"
+    }
+  ]
+}

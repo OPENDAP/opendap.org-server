@@ -1,6 +1,7 @@
 import { AsciiDocModule } from './src/modules/asciidoc';
 import { HyraxModule } from './src/modules/hyrax';
 import { MarkdownModule } from './src/modules/markdown';
+import { MenuBuilder } from './src/modules/menu-builder';
 
 import express = require('express');
 import http = require('http');
@@ -15,6 +16,11 @@ app.use(express.static(__dirname + '/public'));
 const asciiDocModule = new AsciiDocModule();
 const hyraxModule = new HyraxModule();
 const markdownModule = new MarkdownModule();
+const menuModule = new MenuBuilder();
+
+app.get('/api/menu', (req, res) => {
+    res.status(200).send(menuModule.menu);
+});
 
 app.get('/api/adoc/:pageTitle', (req, res) => {
     asciiDocModule.getStandardArticle(req.params['pageTitle']).subscribe(response => {

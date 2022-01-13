@@ -1,16 +1,15 @@
 import { Observable } from 'rxjs';
 
 import { MarkdownModel } from '../models/markdown.model';
+import { Links } from '../classes/utils';
 
 import path = require('path');
 import fs = require('fs');
 
 export class MarkdownModule {
-    private faqPath = path.resolve(path.join('public', 'support', 'faq'));
-
     public getFaq(): Observable<Array<Array<MarkdownModel>>> {
         return new Observable(observer => {
-            const files = fs.readdirSync(this.faqPath);
+            const files = fs.readdirSync(Links.faq);
             const articles: any = {};
 
             for (const thisDir of files) {
@@ -18,8 +17,8 @@ export class MarkdownModule {
 
                 const thisFAQSection: Array<MarkdownModel> = [];
 
-                for (const thisFAQ of fs.readdirSync(path.join(this.faqPath, thisDir))) {
-                    const faqSection = fs.readFileSync(path.join(this.faqPath, thisDir, thisFAQ), 'utf8');
+                for (const thisFAQ of fs.readdirSync(path.join(Links.faq, thisDir))) {
+                    const faqSection = fs.readFileSync(path.join(Links.faq, thisDir, thisFAQ), 'utf8');
                     thisFAQSection.push(new MarkdownModel(thisFAQ.substring(0, thisFAQ.length - 3), faqSection));
                 }
 
@@ -35,7 +34,7 @@ export class MarkdownModule {
         return new Observable(observer => {
             let fileName = `${articleTitle}.md`;
 
-            fs.readdir(this.faqPath, (err, files) => {
+            fs.readdir(Links.faq, (err, files) => {
                 if (err) {
                     observer.error({
                         'error': `Unable to load ${articleTitle}.`,
@@ -44,10 +43,10 @@ export class MarkdownModule {
                     });
                 } else {
                     for (const thisDir of files) {
-                        let faqSection = fs.readdirSync(path.join(this.faqPath, thisDir));
+                        let faqSection = fs.readdirSync(path.join(Links.faq, thisDir));
         
                         if (faqSection.includes(fileName)) {
-                            let file = fs.readFileSync(path.join(this.faqPath, thisDir, fileName), 'utf8');
+                            let file = fs.readFileSync(path.join(Links.faq, thisDir, fileName), 'utf8');
                             observer.next(new MarkdownModel(articleTitle, file));
                             break;
                         }

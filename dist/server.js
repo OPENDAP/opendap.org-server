@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var asciidoc_1 = require("./src/modules/asciidoc");
 var hyrax_1 = require("./src/modules/hyrax");
 var markdown_1 = require("./src/modules/markdown");
+var menu_builder_1 = require("./src/modules/menu-builder");
 var express = require("express");
 var http = require("http");
 var path = require("path");
@@ -13,6 +14,10 @@ app.use(express.static(__dirname + '/public'));
 var asciiDocModule = new asciidoc_1.AsciiDocModule();
 var hyraxModule = new hyrax_1.HyraxModule();
 var markdownModule = new markdown_1.MarkdownModule();
+var menuModule = new menu_builder_1.MenuBuilder();
+app.get('/api/menu', function (req, res) {
+    res.status(200).send(menuModule.menu);
+});
 app.get('/api/adoc/:pageTitle', function (req, res) {
     asciiDocModule.getStandardArticle(req.params['pageTitle']).subscribe(function (response) {
         res.status(200).send(response);

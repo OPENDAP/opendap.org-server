@@ -2,12 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HyraxModule = void 0;
 var rxjs_1 = require("rxjs");
+var utils_1 = require("../classes/utils");
 var hyrax_version_model_1 = require("../models/hyrax-version.model");
 var fs = require("fs");
 var path = require("path");
 var HyraxModule = /** @class */ (function () {
     function HyraxModule() {
-        this.hyraxDir = path.resolve(path.join('public', 'Hyrax'));
     }
     /**
      * Returns a specific version of Hyrax data from the server.
@@ -15,9 +15,8 @@ var HyraxModule = /** @class */ (function () {
      * @param {response} res The response that will serve the data.
      */
     HyraxModule.prototype.getSpecificVersion = function (requestedVersion) {
-        var _this = this;
         return new rxjs_1.Observable(function (observer) {
-            var versionPath = path.join(_this.hyraxDir, requestedVersion);
+            var versionPath = path.join(utils_1.Links.hyrax, requestedVersion);
             fs.readdir(versionPath, function (err, files) {
                 if (err) {
                     observer.error({
@@ -30,7 +29,7 @@ var HyraxModule = /** @class */ (function () {
                     var allVersionFiles = new hyrax_version_model_1.AllVersionFiles(requestedVersion);
                     for (var _i = 0, files_1 = files; _i < files_1.length; _i++) {
                         var file = files_1[_i];
-                        var thisFile = fs.readFileSync(path.join(_this.hyraxDir, requestedVersion, file), 'utf8');
+                        var thisFile = fs.readFileSync(path.join(utils_1.Links.hyrax, requestedVersion, file), 'utf8');
                         if (file.includes("download")) {
                             var sections = thisFile.split("#SPLIT#");
                             sections.shift();
@@ -50,9 +49,8 @@ var HyraxModule = /** @class */ (function () {
         });
     };
     HyraxModule.prototype.getAllVersions = function () {
-        var _this = this;
         return new rxjs_1.Observable(function (observer) {
-            fs.readdir(_this.hyraxDir, function (err, files) {
+            fs.readdir(utils_1.Links.hyrax, function (err, files) {
                 if (err) {
                     observer.error({
                         'error': 'Unable to get Hyrax versions.',
@@ -72,7 +70,7 @@ var HyraxModule = /** @class */ (function () {
     HyraxModule.prototype.getVersion = function (version) {
         var _this = this;
         return new rxjs_1.Observable(function (observer) {
-            fs.readdir(_this.hyraxDir, function (err, files) {
+            fs.readdir(utils_1.Links.hyrax, function (err, files) {
                 if (err) {
                     observer.error({
                         'error': "Unable to read " + (version === -1 ? 'latest' : '') + " Hyrax version.",

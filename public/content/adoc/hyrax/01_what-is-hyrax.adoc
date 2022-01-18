@@ -1,40 +1,47 @@
 = What is Hyrax?
 
-Hyrax is a system that comprises two parts: the OPeNDAP Lightweight Front-end Server, generally referred to by its acronym, OLFS,
+Hyrax is one example of a number of data servers that implement OPeNDAP’s Data Access Protocol.
+It is a system that comprises two parts: the OPeNDAP Lightweight Front-end Server, generally referred to by its acronym, OLFS,
 and the Back-end Server, the BES. The OLFS and the BES work together to serve data;
 the OLFS converts client requests to the language of the BES, and the BES serves the requested data in the requested format.
 
-// OLFS undersatnds the way requests are structured
-// Takes request that the client issues and converts it to the language of the back-end server.
-// Sometimes has to query the BES to figure out what to do
+While it may seem like an odd design decision to split Hyrax into two pieces of software,
+we had a few reasons for doing so. Firstly, as unix developers, we follow the Unix paradigm of making
+a program do one thing well. The OLFS and the BES have fundamentally different functions:
+the BES is esentially an intelligent data warehouse that injests DAP requests and spits out data,
+whereas the OLFS tackles the highly-complex task of converting human-readable HTTP requests to
+non-human-readable DAP requests. Furthermore, the OLFS is smart enough to contact the BES when it needs information
+about how to create a query.
 
-// Has two parts, because there was a desire to disconnect front end from back-end, a security layer. OLFS is point of contact for entire world.
-// They can be run on seperate system--physically or virtually. Back-end is the only thing that can touch data.
-// BES takes care of the heavy lifting, except...
-//   front-end does metadata work, such as support for web coverage service
-//   meta-data transformation
-//   Front end says to back-end tell me everything you know about this
-//   Distributed as a web archive file, runs inside of a Tomcat
+Our second consideration has to do with security. The OLFS is the point of contact for the entire world,
+meaning that, while very secure in its own right, it is exposed to security threats. The BES, on the other hand,
+is only accessible via the OLFS. If the OLFS is breached, intruders will be able to access data,
+but they will be able to inflict minimal damage.
 
-// XXL transform
+The OLFS and the BES serve test data immediately after a default installation, but additional
+configuration is required for them to serve site-specific data. For information about configuring the BES,
+check out our https://opendap.github.io/hyrax_guide/Master_Hyrax_Guide.html#_customizing_hyrax[Hyrax guide].
 
-// Front-End application sits in front of the BES
+{{
+  "sectionType": "html",
+  "title": "FART",
+  "id": "hyrax-architecture",
+  "filename": "02_hyrax-architecture.html",
+  "parsedFile": ""
+}}
 
+== OPeNDAP Lightweight Front-end Server (OLFS)
 
+The OLFS uses the Java servlet mechanism to hand off requests from a general web daemon to the BES. 
+It looks at each request and formulates a query to a second server, the BES. 
 
-// Hyrax is a data server that forwards requests from a general web daemon to DAP format-specific software.
-// This provides higher performance for small requests.
+While the BES takes care of the heavy lifting, the front-end does metadata work, such as support for web coverage service
+and meta-data transformation.
 
+== Back-end Server (BES)
 
-// Hyrax uses the Java servlet mechanism to hand off requests from a general web daemon to DAP format-specific software. 
-// The servlet front end, which we call the OPeNDAP Lightweight Front end Server (OLFS) looks at each request and formulates a query to a second server (which may or may not on the same machine as the OLFS) called the Back End Server (BES).
+The BES is the high-performance server software from HAO. It reads data from the data stores and returns DAP-compliant responses to the OLFS. In turn, the OLFS may pass these response back to the requestor with little or no modification, or it may use them to build more complex responses. The nature of the Inter Process Communication (IPC) between the OLFS and BES is such that they should both be on the same machine or able to communicate over a very high-bandwidth channel.
 
-// The BES is the high-performance server software from HAO. It reads data from the data stores and returns DAP-compliant responses to the OLFS. In turn, the OLFS may pass these response back to the requestor with little or no modification, or it may use them to build more complex responses. The nature of the Inter Process Communication (IPC) between the OLFS and BES is such that they should both be on the same machine or able to communicate over a very high-bandwidth channel.
-
-// Hyrax is one example of a number of data servers that implement OPeNDAP’s Data Access Protocol (DAP).
-
-// The OLFS and the BES will run and serve test data immediately after a default installation. Additional configuration is required for them to serve site specific data.
-
-// BES CMDL
-// - if you know how to write BES command, you can use it to send to a running BES and get the answer
-// BES Standalone
+BES CMDL
+- if you know how to write BES command, you can use it to send to a running BES and get the answer
+BES Standalone

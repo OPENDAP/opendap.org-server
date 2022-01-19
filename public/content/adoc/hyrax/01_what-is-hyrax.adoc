@@ -1,6 +1,6 @@
-= What is Hyrax?
+= About
 
-Hyrax is one example of a number of data servers that implement OPeNDAP’s Data Access Protocol.
+Hyrax is our in-house implementation of OPeNDAP's Data Access Protocol.
 It is a system that comprises two parts: the OPeNDAP Lightweight Front-end Server, generally referred to by its acronym, OLFS,
 and the Back-end Server, the BES. The OLFS and the BES work together to serve data;
 the OLFS converts client requests to the language of the BES, and the BES serves the requested data in the requested format.
@@ -21,6 +21,8 @@ but they will be able to inflict minimal damage.
 The OLFS and the BES serve test data immediately after a default installation, but additional
 configuration is required for them to serve site-specific data. For information about configuring the BES,
 check out our https://opendap.github.io/hyrax_guide/Master_Hyrax_Guide.html#_customizing_hyrax[Hyrax guide].
+
+== Architecture
 
 {{
   "sectionType": "html",

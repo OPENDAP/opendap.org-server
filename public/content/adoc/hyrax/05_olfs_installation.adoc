@@ -1,0 +1,150 @@
+== OLFS Installation
+:Leonard Porrello <lporrel@gmail.com>:
+
+The OLFS comes with a default configuration that is compatible with the
+default configuration of the BES. If you perform a default installation
+of both, you should get a running Hyrax server that will be pre-populated
+with test data suitable for running integrity tests.
+
+=== Install Tomcat
+
+. Use yum to install tomcat.noarch: `sudo yum install tomcat.noarch`.
+. Create the directory `/etc/olfs`, change its group to tomcat, 
+and set it _group writable:_
++
+....
+mkdir /etc/olfs
+chgrp tomcat /etc/olfs
+chmod g+w /etc/olfs)
+....
++
+Alternatively, get Apache Tomcat-8.x from the Apache Software Foundation and 
+install it wherever you'd like--for example, `/usr/local/`.
+
+=== Download
+
+Follow the steps below to download the latest OLFS distribution:
+
+. Visit the 
+  https://www.opendap.org/software/hyrax-data-server#block-hyraxversions-menu[Hyrax
+  Data Server Page].
+. Select the most recent in the list of _Available Versions_.
+. Scroll down the following page until you reach the section titled 
+  _Binaries for Hyrax x.x.x_.
+. Directly underneath, you should see the OLFS download link, 
+  named something like _OLFS_x.x.x._Web_Archive_File_. Click to download.
+. The downloaded file will be named something like: _olfs-x.x.x-webapp.tgz_.
+
+=== Unpack
+
+Unpack the jar file with the command `tar -xvf olfs-x.x.x-webapp.tgz`,
+which will unpack the files directory called _olfs-x.x.x-webapp_.
+
+=== Install
+
+Inside of the _olfs-x.x.x-webapp_ directory, locate opendap.war and copy it into
+Tomcat's _webapps_ directory:
+
+....
+cp opendap.war /usr/share/tomcat/webapps
+....
+
+Or, if you installed tomcat from the ASF distribution, its web application directory, for example...
+
+....
+/usr/local/apache-tomcat-8.5.34/webapps
+....
+
+==== CentOS-7/SELinux and Yum installed Tomcat
+
+Recent versions of CentOS-7 are shipped with default SELinux settings that prohibit Tomcat from reading or opening the *opendap.war* file. This can be addressed by issuing the following two commands:
+----
+sudo semanage fcontext -a -t tomcat_var_lib_t /var/lib/tomcat/webapps/opendap.war
+sudo restorecon -rv /var/lib/tomcat/webapps/
+----
+After this you will need to restart Tomcat:
+----
+sudo service tomcat restart
+----
+
+////
+If you're replacing an older version of the OLFS you may need do one or more of:
+
+* Remove the directory `$CATALINA_HOME/webapps/opendap` before
+restarting Tomcat.
+* Determine if the existing configuration information for the
+OLFS needs to be updated. If things don't work after you start Tomcat,
+you should compare your local configuration with the distributed one. Typically the local configuration or the OLFS will be located in the the `/etc/olfs` directory. The file `/etc/olfs/olfs.xml` should be compared to the new default
+configuration located in
+`$CATALINA_HOME/webapps/opendap/WEB-INF/conf/olfs.xml` If they differ
+significantly:
+** Backup your current configuration and move it out of the way:
++
+`cd /etc; tar -cvzf ~/olfs_backup.tgz olfs; mv olfs ~/olfs_backup`
+** Restart Tomcat. If the directory `/etc/olfs` exists and can be written to by
+the Tomcat user then the OLFS will copy its default configuration set to the
+`/etc/olfs` location at start up.
+** Compare your previous configuration files `~/olfs_backup` with the new default
+ones in `/etc/olfs` and adjust the new ones accordingly.
+
+
+== Starting and Stopping the OLFS/Tomcat
+
+The OLFS component of Hyrax is web application made up of several components all of which get started when Tomcat is started, assuming that the `opendap.war` has been placed in the $CATALINA_HOME/webapps directory prior to Tomcat start.
+////
+
+=== Starting and Stopping the OLFS/Tomcat
+
+If you followed this tutorial and are using a YUM-installed Tomcat, 
+it should already be integrated into the system with a `tomcat` entry 
+in `/etc/init.d` and you should be able to...
+
+* *Start Tomcat*: `sudo service tomcat start`
+* *Stop  Tomcat*: `sudo service tomcat stop`
+
+You can verify that the server is running by visiting http://localhost:8080/opendap/.
+If you have installed Hyrax on a virtual machine, replace _localhost_ with the 
+virtual machine's IP address.
+
+////
+==== Starting Hyrax At Boot Time
+
+In Linux, if you want Hyrax to start at boot time then you can do the following:
+
+* Add Tomcat to the startup process:  `chkconfig --add tomcat`
+* Add the BES to the startup process: `chkconfig --add besd`
+
+Confirm that this worked by using the list function of `chkconfig`:
+```
+[~]$ chkconfig --list besd
+besd           	0:off	1:off	2:on	3:on	4:on	5:on	6:off
+[~]$ chkconfig --list tomcat
+tomcat         	0:off	1:off	2:on	3:on	4:on	5:on	6:off
+```
+
+=== All systems running Tomcat from Apache distribution
+
+If you have a Tomcat instance inflated from a downloaded distribution file
+from Apache Tomcat then  you will need to configure the Tomcat environment
+by setting the environment variable CATALINA_HOME to the full path of the
+unpacked Tomcat distribution.
+
+In bash: `export CATALINA_HOME = /usr/local/apache-tomcat-6.x.x`
+
+With your shell environment configured correctly you should be able to control Tomcat like this:
+
+* *Start Tomcat*: `$CATALINA_HOME/bin/startup.sh`
+* *Stop  Tomcat*: `$CATALINA_HOME/bin/shutdown.sh`
+
+When Tomcat starts up, it will unpack your opendap.war file and install the
+webapp. You can watch this process and see other logging output by starting the
+Tomcat like so:
+
+* *Start and Watch Tomcat*: `$CATALINA_HOME/bin/startup.sh; tail -f $CATALINA_HOME/logs/catalina.out`
+
+
+WARNING: If you use `ctrl-c` to stop watching the tail of the
+server's output, make sure to run the command `bin/shutdown.sh`
+to shutdown Tomcat. If you don't, you may get errors when you next try
+to start the Tomcat server.
+////

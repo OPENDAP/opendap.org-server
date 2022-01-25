@@ -1,49 +1,86 @@
 = About
 
-Hyrax is our in-house implementation of OPeNDAP's Data Access Protocol.
-It is a system that comprises two parts: the OPeNDAP Lightweight Front-end Server, generally referred to by its acronym, OLFS,
-and the Back-end Server, the BES. The OLFS and the BES work together to serve data;
-the OLFS converts client requests to the language of the BES, and the BES serves the requested data in the requested format.
+Hyrax is our in-house implementation of OPeNDAP's Data Access Protocol (DAP). It's a system that comprises two parts:
+the OPeNDAP Lightweight Front-end Server (OLFS) implements a web API, and the Back-end Server (BES) is a compute engine.
+The OLFS and the BES work together to serve data.
+The OLFS receives requests via the web API and creates XML documents for the BES.
+The BES injests the XML file and works with different types of datastores to construct the correct response.
+That response is then sent back to the OLFS.
 
-While it may seem like an odd design decision to split Hyrax into two pieces of software,
-we had a few reasons for doing so. Firstly, as unix developers, we follow the Unix paradigm of making
-a program do one thing well. The OLFS and the BES have fundamentally different functions:
-the BES is esentially an intelligent data warehouse that injests DAP requests and spits out data,
-whereas the OLFS tackles the highly-complex task of converting human-readable HTTP requests to
-non-human-readable DAP requests. Furthermore, the OLFS is smart enough to contact the BES when it needs information
-about how to create a query.
+{{
+  "sectionType": "html",
+  "title": "architecture",
+  "id": "hyrax-architecture",
+  "filename": "hyrax-architecture.html",
+  "parsedFile": ""
+}}
 
-Our second consideration has to do with security. The OLFS is the point of contact for the entire world,
-meaning that, while very secure in its own right, it is exposed to security threats. The BES, on the other hand,
-is only accessible via the OLFS. If the OLFS is breached, intruders will be able to access data,
-but they will be able to inflict minimal damage.
+== Advantages
+
+OPeNDAP's mission is to promote the use of online data. With that mission in mind,
+we developed Hyrax both horizontally and vertically: horizontally, in that Hyrax can be easily
+extended to support many data structures and sources, and vertically, in that it is highly integrated
+with NASA, which has thousands of highly-structured datasets.
+
+Additionally, if an organization needs to implement a new data structure or source within Hyrax,
+OPeNDAP as a company provides consulting services. We can assign our developers
+to the task and are willing to negotiate on time and materials, as well as fixed-price contracts.
+
+== Implementation
+
+The idea of having them separate communicating of TCIP, we thought a lot of users would want to run the front-end
+outside the firewall, and they would tunnel through to other computers running the back-end to isolate their data,
+but the reality is most people don't do that. The reason we coded the front end in Java:
+
+* Nathan was more comfortable with Java
+* James was more comfortable with Java because it was more robust with internet exposure
+
 
 The OLFS and the BES serve test data immediately after a default installation, but additional
 configuration is required for them to serve site-specific data. For information about configuring the BES,
 check out our https://opendap.github.io/hyrax_guide/Master_Hyrax_Guide.html#_customizing_hyrax[Hyrax guide].
 
-== Architecture
 
-{{
-  "sectionType": "html",
-  "title": "FART",
-  "id": "hyrax-architecture",
-  "filename": "02_hyrax-architecture.html",
-  "parsedFile": ""
-}}
+// Most of the companies who work with DAPs are, like OPeNDAP, not for profit and open source.
+// As such, there is a lot of overlap between different systems. For example, we have implemented
+// our own THREDDS catalog 
 
-== OPeNDAP Lightweight Front-end Server (OLFS)
+// These servers are incestuous when it comes to the way they share data.
+// Lots of overlap. They saw protocol that devs at unidata built, so they said
+// we're gonna implement that as well, because it's really smart, also NCML aggregation technology.
+// We are providing a second implementation of those protocols. One askpect of providing
+// support for online data.
 
-The OLFS uses the Java servlet mechanism to hand off requests from a general web daemon to the BES. 
-It looks at each request and formulates a query to a second server, the BES. 
+// The reason we created our own implementation and why it's important
+// is because it provides a truthing mechanism for "can this idea be implemented by other people"
+// "is it documented well enough."
 
-While the BES takes care of the heavy lifting, the front-end does metadata work, such as support for web coverage service
-and meta-data transformation.
 
-== Back-end Server (BES)
 
-The BES is the high-performance server software from HAO. It reads data from the data stores and returns DAP-compliant responses to the OLFS. In turn, the OLFS may pass these response back to the requestor with little or no modification, or it may use them to build more complex responses. The nature of the Inter Process Communication (IPC) between the OLFS and BES is such that they should both be on the same machine or able to communicate over a very high-bandwidth channel.
+// OPeDAP engages in research work. We're available to partner with universities and other
+// entities:
+//   support services
+//   conducting research
+//   peer reviewed publications,
+//   co-authors on proposals
+//   federally funded
 
-BES CMDL
-- if you know how to write BES command, you can use it to send to a running BES and get the answer
-BES Standalone
+// "We can be co-pis on your prosopasl" more difficult than SPIR, small business innovative.
+// OPeNDAP benefits, because it provides a way for us to explore technologies that are risky.
+// As a software company, they have to produce something that's a reliable, but that's
+// not where you get to test the really big ideas. For example, explored replacing latitude and longitude.
+// That's not for operational support, the contracts are.
+
+// NASA wants people to be able to use OPeNDAP to access data, so OPeNDAP works with them 
+// closely to make sure that goal can be realized. An operational peice of software is
+// very complicated; make sure it works all the time by maybe thousands of people at the same time.
+
+// Hyrax is not the only system that supports various DAPs. Other systems include...
+
+// * *THREDDS Data Server (TDS)*: TDS is designed and mainted by Unidata. It supports a variety
+// of remote data access protocols and is arranged around the way that Java manages data.
+// * *ERDDAP*: ERDDAP is designed and maintained by NOAA. Like the others on this list,
+// it supports many remote data access protocols and is tailored to the way that NOAA
+// organizes its oceanographic data.
+// * *Pydap*: Pydap, developed by members of the Python community, is a pure Python implementation
+// of OPeNDAP's data access protocol. 

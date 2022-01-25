@@ -1,0 +1,20 @@
+= Architecture
+
+While it may seem like an odd design decision to split Hyrax into two pieces of software,
+we had a few reasons for doing so. Firstly, the OLFS and the BES have fundamentally different functions:
+the BES is esentially an intelligent data warehouse that injests DAP requests and returns data,
+whereas the OLFS tackles the highly-complex task of converting human-readable HTTP requests to
+non-human-readable DAP requests.
+
+{{
+  "sectionType": "html",
+  "title": "architecture",
+  "id": "hyrax-architecture",
+  "filename": "hyrax-architecture.html",
+  "parsedFile": ""
+}}
+
+Our second consideration has to do with security. The OLFS is the point of contact for the entire world,
+meaning that, while very secure in its own right, it is exposed to security threats. The BES, on the other hand,
+is only accessible via the OLFS. If the OLFS is breached, intruders will be able to access data,
+but they will only be able to inflict minimal damage.

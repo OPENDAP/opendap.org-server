@@ -1,4 +1,3 @@
-== OLFS Installation
 :Leonard Porrello <lporrel@gmail.com>:
 
 The OLFS comes with a default configuration that is compatible with the
@@ -6,7 +5,7 @@ default configuration of the BES. If you perform a default installation
 of both, you should get a running Hyrax server that will be pre-populated
 with test data suitable for running integrity tests.
 
-=== Install Tomcat
+== Install Tomcat
 
 . Use yum to install tomcat.noarch: `sudo yum install tomcat.noarch`.
 . Create the directory `/etc/olfs`, change its group to tomcat, 
@@ -21,7 +20,7 @@ chmod g+w /etc/olfs)
 Alternatively, get Apache Tomcat-8.x from the Apache Software Foundation and 
 install it wherever you'd like--for example, `/usr/local/`.
 
-=== Download
+== Download
 
 Follow the steps below to download the latest OLFS distribution:
 
@@ -35,12 +34,12 @@ Follow the steps below to download the latest OLFS distribution:
   named something like _OLFS_x.x.x._Web_Archive_File_. Click to download.
 . The downloaded file will be named something like: _olfs-x.x.x-webapp.tgz_.
 
-=== Unpack
+== Unpack
 
 Unpack the jar file with the command `tar -xvf olfs-x.x.x-webapp.tgz`,
 which will unpack the files directory called _olfs-x.x.x-webapp_.
 
-=== Install
+== Install
 
 Inside of the _olfs-x.x.x-webapp_ directory, locate opendap.war and copy it into
 Tomcat's _webapps_ directory:
@@ -55,7 +54,7 @@ Or, if you installed tomcat from the ASF distribution, its web application direc
 /usr/local/apache-tomcat-8.5.34/webapps
 ....
 
-==== CentOS-7/SELinux and Yum installed Tomcat
+=== CentOS-7/SELinux and Yum installed Tomcat
 
 Recent versions of CentOS-7 are shipped with default SELinux settings that prohibit Tomcat from reading or opening the *opendap.war* file. This can be addressed by issuing the following two commands:
 ----
@@ -93,7 +92,7 @@ ones in `/etc/olfs` and adjust the new ones accordingly.
 The OLFS component of Hyrax is web application made up of several components all of which get started when Tomcat is started, assuming that the `opendap.war` has been placed in the $CATALINA_HOME/webapps directory prior to Tomcat start.
 ////
 
-=== Starting and Stopping the OLFS/Tomcat
+== Starting and Stopping the OLFS/Tomcat
 
 If you followed this tutorial and are using a YUM-installed Tomcat, 
 it should already be integrated into the system with a `tomcat` entry 

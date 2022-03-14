@@ -11,7 +11,8 @@ export enum DocTypes {
   standard = "standard",
   tabbed = "tabbed",
   gallery = "gallery",
-  html = "html"
+  html = "html",
+  cards = "cards"
 }
 
 export class AsciiDocModule {
@@ -104,6 +105,9 @@ export class AsciiDocModule {
       case (DocTypes.gallery):
         section.parsedFile = JSON.parse(fs.readFileSync(path.resolve(Links.pages, pageTitle, section.filename), 'utf8'));
         break;
+      case (DocTypes.cards):
+        section.parsedFile = JSON.parse(fs.readFileSync(path.resolve(Links.pages, pageTitle, section.filename), 'utf8'));
+        break;
       case (DocTypes.html):
         section.parsedFile = fs.readFileSync(path.resolve(Links.pages, pageTitle, section.filename), 'utf8');
     }
@@ -123,7 +127,7 @@ export class AsciiDocModule {
           toReturn += innerSection;
         }
       });
-      
+
       return toReturn;
     }
 

@@ -7,38 +7,27 @@ The OLFS receives requests via the web API and creates XML documents for the BES
 The BES injests the XML file and works with different types of datastores to construct the correct response.
 That response is then sent back to the OLFS.
 
-{{
-  "sectionType": "html",
-  "title": "architecture",
-  "id": "hyrax-architecture",
-  "filename": "hyrax-architecture.html",
-  "parsedFile": ""
-}}
+// {{
+//   "sectionType": "html",
+//   "title": "architecture",
+//   "id": "hyrax-architecture",
+//   "filename": "hyrax-architecture.html",
+//   "parsedFile": ""
+// }}
 
-== Advantages
+// == Implementation
 
-OPeNDAP's mission is to promote the use of online data. With that mission in mind,
-we developed Hyrax both horizontally and vertically: horizontally, in that Hyrax can be easily
-extended to support many data structures and sources, and vertically, in that it is highly integrated
-with NASA, which has thousands of highly-structured datasets.
+// The idea of having them separate communicating of TCIP, we thought a lot of users would want to run the front-end
+// outside the firewall, and they would tunnel through to other computers running the back-end to isolate their data,
+// but the reality is most people don't do that. The reason we coded the front end in Java:
 
-Additionally, if an organization needs to implement a new data structure or source within Hyrax,
-OPeNDAP as a company provides consulting services. We can assign our developers
-to the task and are willing to negotiate on time and materials, as well as fixed-price contracts.
-
-== Implementation
-
-The idea of having them separate communicating of TCIP, we thought a lot of users would want to run the front-end
-outside the firewall, and they would tunnel through to other computers running the back-end to isolate their data,
-but the reality is most people don't do that. The reason we coded the front end in Java:
-
-* Nathan was more comfortable with Java
-* James was more comfortable with Java because it was more robust with internet exposure
+// * Nathan was more comfortable with Java
+// * James was more comfortable with Java because it was more robust with internet exposure
 
 
-The OLFS and the BES serve test data immediately after a default installation, but additional
-configuration is required for them to serve site-specific data. For information about configuring the BES,
-check out our https://opendap.github.io/hyrax_guide/Master_Hyrax_Guide.html#_customizing_hyrax[Hyrax guide].
+// The OLFS and the BES serve test data immediately after a default installation, but additional
+// configuration is required for them to serve site-specific data. For information about configuring the BES,
+// check out our https://opendap.github.io/hyrax_guide/Master_Hyrax_Guide.html#_customizing_hyrax[Hyrax guide].
 
 
 // Most of the companies who work with DAPs are, like OPeNDAP, not for profit and open source.

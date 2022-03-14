@@ -1,0 +1,10 @@
+= Advantages
+
+OPeNDAP's mission is to promote the use of online data. With that mission in mind,
+we developed Hyrax both horizontally and vertically: horizontally, in that Hyrax can be easily
+extended to support many data structures and sources, and vertically, in that it is highly integrated
+with NASA, which has thousands of highly-structured datasets.
+
+Additionally, if an organization needs to implement a new data structure or source within Hyrax,
+OPeNDAP as a company provides consulting services. We can assign our developers
+to the task and are willing to negotiate on time and materials, as well as fixed-price contracts.

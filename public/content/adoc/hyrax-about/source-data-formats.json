@@ -1,0 +1,12 @@
+{
+  "cards": [
+      {
+          "title": "Source Data Formats",
+          "body": "The BES can ingest source data stored as HDF4, HDF4-EOS, HDF5, HDF5-EOS  NetCDF-3, NetCDF-4, CEDAR, FITS, CSV, and Raw ASCII and binary formats. Because of Hyrax’s extensible design, it's easy to add new source data formats."
+      },
+      {
+        "title": "Data Retrieval Formats",
+        "body": "Hyrax is able to return data in DAP, DAP4, NetCDF-3, NetCDF-4, JSON, CSV, and ASCII formats. You can also add your own response types."
+      }
+  ]
+}

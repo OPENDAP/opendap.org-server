@@ -1,0 +1,38 @@
+== Architecture
+
+=== Back-end Server (BES)
+
+The BES is the high-performance server software from HAO. It reads data from the data stores and returns DAP-compliant responses to the OLFS. In turn, the OLFS may pass these response back to the requestor with little or no modification, or it may use them to build more complex responses. The nature of the Inter Process Communication (IPC) between the OLFS and BES is such that they should both be on the same machine or able to communicate over a very high-bandwidth channel.
+
+BES CMDL
+- if you know how to write BES command, you can use it to send to a running BES and get the answer
+BES Standalone
+
+=== OPeNDAP Lightweight Front-end Server (OLFS)
+
+The OLFS uses the Java servlet mechanism to hand off requests from a general web daemon to the BES. 
+It looks at each request and formulates a query to a second server, the BES. 
+
+While the BES takes care of the heavy lifting, the front-end does metadata work, such as support for web coverage service
+and meta-data transformation.
+
+=== Why the Split Architecture?
+
+While it may seem like an odd design decision to split Hyrax into two pieces of software,
+we had a few reasons for doing so. Firstly, the OLFS and the BES have fundamentally different functions:
+the BES is esentially an intelligent data warehouse that injests DAP requests and returns data,
+whereas the OLFS tackles the highly-complex task of converting human-readable HTTP requests to
+non-human-readable DAP requests.
+
+{{
+  "sectionType": "html",
+  "title": "architecture",
+  "id": "hyrax-architecture",
+  "filename": "hyrax-architecture.html",
+  "parsedFile": ""
+}}
+
+Our second consideration has to do with security. The OLFS is the point of contact for the entire world,
+meaning that, while very secure in its own right, it is exposed to security threats. The BES, on the other hand,
+is only accessible via the OLFS. If the OLFS is breached, intruders will be able to access data,
+but they will only be able to inflict minimal damage.

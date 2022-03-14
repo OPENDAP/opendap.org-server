@@ -9,7 +9,16 @@
         },
         {
           "name": "Hyrax",
-          "link": "hyrax"
+          "menuItems": [
+            {
+              "name": "About Hyrax",
+              "link": "hyrax-about"
+            },
+            {
+              "name": "Installation",
+              "link": "hyrax-installation"
+            }
+          ]
         }
       ]
     },

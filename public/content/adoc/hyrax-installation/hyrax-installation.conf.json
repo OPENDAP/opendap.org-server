@@ -1,0 +1,19 @@
+{
+  "pageTitle": "Hyrax Installation Guide",
+  "sections": [
+    {
+      "sectionType": "standard",
+      "title": "OLFS Installation",
+      "id": "olfs-installation",
+      "filename": "05_olfs_installation.adoc",
+      "parsedFile": ""
+    },
+    {
+      "sectionType": "standard",
+      "title": "BES Installation",
+      "id": "bes",
+      "filename": "07_bes_installation.adoc",
+      "parsedFile": ""
+    }
+  ]
+}

@@ -10,13 +10,6 @@
     },
     {
       "sectionType": "standard",
-      "title": "",
-      "id": "features",
-      "filename": "02_features.adoc",
-      "parsedFile": ""
-    },
-    {
-      "sectionType": "standard",
       "title": "Architecture",
       "id": "architecture",
       "filename": "03_architecture.adoc",
@@ -24,23 +17,16 @@
     },
     {
       "sectionType": "standard",
-      "title": "OLFS",
-      "id": "olfs",
-      "filename": "04_olfs.adoc",
+      "title": "Advantages",
+      "id": "advantages",
+      "filename": "02_advantages.adoc",
       "parsedFile": ""
     },
     {
       "sectionType": "standard",
-      "title": "OLFS Installation",
-      "id": "olfs-installation",
-      "filename": "05_olfs_installation.adoc",
-      "parsedFile": ""
-    },
-    {
-      "sectionType": "standard",
-      "title": "Back-end Server",
-      "id": "bes",
-      "filename": "06_bes.adoc",
+      "title": "Features",
+      "id": "features",
+      "filename": "02_features.adoc",
       "parsedFile": ""
     }
   ]

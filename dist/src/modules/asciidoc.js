@@ -12,6 +12,7 @@ var DocTypes;
     DocTypes["tabbed"] = "tabbed";
     DocTypes["gallery"] = "gallery";
     DocTypes["html"] = "html";
+    DocTypes["cards"] = "cards";
 })(DocTypes = exports.DocTypes || (exports.DocTypes = {}));
 var AsciiDocModule = /** @class */ (function () {
     function AsciiDocModule() {
@@ -104,6 +105,9 @@ var AsciiDocModule = /** @class */ (function () {
                 });
                 break;
             case (DocTypes.gallery):
+                section.parsedFile = JSON.parse(fs.readFileSync(path.resolve(utils_1.Links.pages, pageTitle, section.filename), 'utf8'));
+                break;
+            case (DocTypes.cards):
                 section.parsedFile = JSON.parse(fs.readFileSync(path.resolve(utils_1.Links.pages, pageTitle, section.filename), 'utf8'));
                 break;
             case (DocTypes.html):

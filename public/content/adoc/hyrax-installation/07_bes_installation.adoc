@@ -1,4 +1,3 @@
-= BES Installation =
 :Leonard Porrello <lporrel@gmail.com>:
 
 

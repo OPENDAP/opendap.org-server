@@ -1,3 +1,5 @@
+== Features
+
 === THREDDS Catalog Support
 
 Hyrax supports the THREDDS catalogs. It can serve user supplied static catalogs and it will dynamically generate THREDDS catalogs of its internal holdings.

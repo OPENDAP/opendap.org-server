@@ -1,4 +1,4 @@
-= About
+= Hyrax
 
 Hyrax is our in-house implementation of OPeNDAP's Data Access Protocol (DAP). It's a system that comprises two parts:
 the OPeNDAP Lightweight Front-end Server (OLFS) implements a web API, and the Back-end Server (BES) is a compute engine.

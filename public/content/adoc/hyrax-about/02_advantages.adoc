@@ -1,4 +1,4 @@
-= Advantages
+== Advantages
 
 OPeNDAP's mission is to promote the use of online data. With that mission in mind,
 we developed Hyrax both horizontally and vertically: horizontally, in that Hyrax can be easily

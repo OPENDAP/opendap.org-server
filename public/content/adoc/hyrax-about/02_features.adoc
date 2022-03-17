@@ -4,6 +4,7 @@
 
 Hyrax supports the THREDDS catalogs. It can serve user supplied static catalogs and it will dynamically generate THREDDS catalogs of its internal holdings.
 
+[[source-data-formats]]
 === Source Data Formats
 
 The BES can ingest source data stored as...
@@ -19,7 +20,8 @@ The BES can ingest source data stored as...
 * Comma Separated Values
 * Raw ASCII and binary formats.
 
-Because of Hyrax’s extensible design, it’s easy to add new source data formats.
+Because of Hyrax's extensible design, it's easy to add new source data formats.
+
 
 === Data Retrieval Formats
 
@@ -35,7 +37,7 @@ Hyrax is able to return data in...
 
 You can also add your own response types.
 
-// Administrator’s interface: Control and dynamically update Hyrax from a convenient web interface. See the Admin interface documentation.
+// Administrator's interface: Control and dynamically update Hyrax from a convenient web interface. See the Admin interface documentation.
 
 === Dataset Aggregation
 
@@ -53,11 +55,11 @@ Hyrax comes with a complete w10n service stack. W10n navigation is supported thr
 
 ==== Gateway
 
-Hyrax supports a gateway feature that allows it to provide DAP (and other Hyrax) services for remotely held datasets that are stored in any of Hyrax’s source data formats.
+Hyrax supports a gateway feature that allows it to provide DAP (and other Hyrax) services for remotely held datasets that are stored in any of Hyrax's source data formats.
 
 ==== RDF
 
-Hyrax provides RDF descriptions of it’s data holdings. These can enable semantic web tools to operate upon the metadata content held in the server.
+Hyrax provides RDF descriptions of it's data holdings. These can enable semantic web tools to operate upon the metadata content held in the server.
 
 ==== JSON
 
@@ -75,7 +77,7 @@ Subset applicable DAP Grids using latitude and longitude values.
 
 === grid
 
-Subset any DAP Grid object using the values of it’s map vectors.
+Subset any DAP Grid object using the values of it's map vectors.
 
 ==== linear_scale
 
@@ -85,19 +87,19 @@ Apply a linear equation to the data returned, including automatic use of CF attr
 
 The version function provides a list of the server-side processing functions available.
 
-=== Configureability
+=== Configurability
 
 ==== Extensible WebStart Functionality for Data Clients
 
-Hyrax provides WebStart functionality for a number of Java based DAP clients. It’s simple to add new clients to the list that Hyrax supports.
+Hyrax provides WebStart functionality for a number of Java based DAP clients. It's simple to add new clients to the list that Hyrax supports.
 
 ==== Extensible/Configurable Web Interface
 
-The web interface for both Hyrax and the administrator’s interface can be customized using CSS and XSL. You can add your organizations logo and specialize the colors and fonts in the presentation of data sets.
+The web interface for both Hyrax and the administrator's interface can be customized using CSS and XSL. You can add your organizations logo and specialize the colors and fonts in the presentation of data sets.
 
 === Support
 
-If there is a feature you would like to see but don’t, let us know: support@opendap.org or opendap-tech@opendap.org. (You need to subscribe first.)
+If there is a feature you would like to see but don't, let us know: support@opendap.org or opendap-tech@opendap.org. (You need to subscribe first.)
 
 
 

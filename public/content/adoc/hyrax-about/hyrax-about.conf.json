@@ -10,16 +10,16 @@
     },
     {
       "sectionType": "standard",
-      "title": "Architecture",
-      "id": "architecture",
-      "filename": "03_architecture.adoc",
+      "title": "Advantages",
+      "id": "advantages",
+      "filename": "02_advantages.adoc",
       "parsedFile": ""
     },
     {
       "sectionType": "standard",
-      "title": "Advantages",
-      "id": "advantages",
-      "filename": "02_advantages.adoc",
+      "title": "Architecture",
+      "id": "architecture",
+      "filename": "03_architecture.adoc",
       "parsedFile": ""
     },
     {

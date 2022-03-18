@@ -1,11 +1,10 @@
 = Hyrax
 
-Hyrax is our in-house implementation of OPeNDAP's Data Access Protocol (DAP). It's a system that comprises two parts:
-the OPeNDAP Lightweight Front-end Server (OLFS) implements a web API, and the Back-end Server (BES) is a compute engine.
-The OLFS and the BES work together to serve data.
-The OLFS receives requests via the web API and creates XML documents for the BES.
-The BES ingests the XML file and works with different types of datastores to construct the correct response.
-That response is then sent back to the OLFS.
+Hyrax is our in-house implementation of OPeNDAP's Data Access Protocol (DAP). It comprises
+a web api and a compute engine, both of which work together to serve virtually any 
+link:/source-data-formats[data structure or source]
+in a variety of formats, including DAP, DAP4, JSON, and link:/hyrax-about#data-retrieval-formats[many more].
+Hyrax is easily extendable, well supported, and robust.
 
 // OPeDAP engages in research work. We're available to partner with universities and other
 // entities:

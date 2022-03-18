@@ -1,13 +1,9 @@
 == Features
 
-=== THREDDS Catalog Support
-
-Hyrax supports the THREDDS catalogs. It can serve user supplied static catalogs and it will dynamically generate THREDDS catalogs of its internal holdings.
-
 [[source-data-formats]]
 === Source Data Formats
 
-The BES can ingest source data stored as...
+Out of the box, the BES can ingest source data stored as...
 
 * HDF4
 * HDF4-EOS
@@ -20,12 +16,12 @@ The BES can ingest source data stored as...
 * Comma Separated Values
 * Raw ASCII and binary formats.
 
-Because of Hyrax's extensible design, it's easy to add new source data formats.
+Because of Hyrax's extendable design, it's easy to add new source data formats.
 
-
+[[data-retrieval-formats]]
 === Data Retrieval Formats
 
-Hyrax is able to return data in...
+Out of the box, Hyrax is able to return data in...
 
 * DAP
 * DAP4
@@ -37,17 +33,22 @@ Hyrax is able to return data in...
 
 You can also add your own response types.
 
-// Administrator's interface: Control and dynamically update Hyrax from a convenient web interface. See the Admin interface documentation.
+==== THREDDS Catalog Support
 
-=== Dataset Aggregation
+Hyrax supports the THREDDS catalogs. It can serve user supplied static catalogs,
+and it will dynamically generate THREDDS catalogs of its internal holdings.
+
+=== Cataloging
+
+==== Dataset Aggregation
 
 Collections of related data resources can be collected into a single dataset using the aggregation features. Typically these are formed for geographic tiles, time series, etc.
 
-=== Adding and Modifying Dataset Content
+==== Adding and Modifying Dataset Content
 
 Datasets can be modified by the server without having to actually change the underlying files. These views are independently accessible from the original data. Both dataset metadata and data values can be added or changed.
 
-=== w10n
+==== w10n
 
 Hyrax comes with a complete w10n service stack. W10n navigation is supported through the default catalog where all datasets and "structure" variables appear as graph nodes. Data can be acquired for atomic types or arrays of atomic types in a number of formats.
 
@@ -96,15 +97,3 @@ Hyrax provides WebStart functionality for a number of Java based DAP clients. It
 ==== Extensible/Configurable Web Interface
 
 The web interface for both Hyrax and the administrator's interface can be customized using CSS and XSL. You can add your organizations logo and specialize the colors and fonts in the presentation of data sets.
-
-=== Support
-
-If there is a feature you would like to see but don't, let us know: support@opendap.org or opendap-tech@opendap.org. (You need to subscribe first.)
-
-
-
-
-
-
-
-

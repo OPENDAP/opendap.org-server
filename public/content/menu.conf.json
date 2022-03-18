@@ -17,6 +17,10 @@
             {
               "name": "Installation",
               "link": "hyrax-installation"
+            },
+            {
+              "name": "Data Handlers",
+              "link": "hyrax-data-handlers"
             }
           ]
         }

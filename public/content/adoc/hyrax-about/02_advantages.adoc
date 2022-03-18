@@ -27,12 +27,12 @@ link:/hyrax-about#source-data-formats[several data handlers that we've already w
 
 === Support
 
-Furthermore, if you need assistance with Hyrax, we're here to help.
+If you need assistance with Hyrax, we're here to help.
 You can send questions to mailto:support@opendap.org[our support email], where they'll be addressed by an OPeNDAP developer.
 We try to respond to your inquiries within a few hours, either with an answer,
 a request for more information, or a note letting you know we're looking into the issue.
 
-For tasks that require a heavier lift than simple support, OPeNDAP provides consulting services.
+Furthermore, for tasks that require a heavier lift than simple support, OPeNDAP provides consulting services.
 We can work with you to implement new features and are willing to negotiate on time and materials,
 as well as fixed-price contracts. For more information about the levels of support that OPeNDAP provides,
 check out our link:/support[Support page].

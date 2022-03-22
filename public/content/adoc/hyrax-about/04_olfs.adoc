@@ -1,7 +1,0 @@
-= OPeNDAP Lightweight Front-end Server (OLFS)
-
-The OLFS uses the Java servlet mechanism to hand off requests from a general web daemon to the BES. 
-It looks at each request and formulates a query to a second server, the BES. 
-
-While the BES takes care of the heavy lifting, the front-end does metadata work, such as support for web coverage service
-and meta-data transformation.

@@ -1,9 +1,8 @@
 = Hyrax
 
 Hyrax is our in-house implementation of OPeNDAP's Data Access Protocol (DAP). It comprises
-a web api and a compute engine, both of which work together to serve virtually any 
-link:/source-data-formats[data structure or source]
-in a variety of formats, including DAP, DAP4, JSON, and link:/hyrax-about#data-retrieval-formats[many more].
+a web api and a compute engine, both of which work together to serve virtually any data structure or source
+in a variety of formats, including DAP, DAP4, JSON, and many more.
 
 // OPeDAP engages in research work. We're available to partner with universities and other
 // entities:

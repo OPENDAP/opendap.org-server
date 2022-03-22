@@ -22,8 +22,40 @@ are a few areas where Hyrax really shines.
 
 Hyrax's primary advantage lies in its extendability. We have designed Hyrax to be as abstract as possible,
 meaning it can handle virtually any data structure or source without undergoing extensive modifications.
-We've proved Hyrax's extendability with
-link:/hyrax-about#source-data-formats[several data handlers that we've already written].
+Hyrax also provides WebStart functionality for a number of Java-based DAP clients.
+It's simple to add new clients to the list that Hyrax supports.
+
+Out of the box, Hyrax can ingest source data stored as...
+
+* HDF4
+* HDF4-EOS
+* HDF5
+* HDF5-EOS
+* NetCDF-3
+* NetCDF-4
+* CEDAR
+* FITS
+* Comma Separated Values
+* Raw ASCII and binary formats.
+
+And it's able to return data in several formats, such as...
+
+* DAP
+* DAP4
+* NetCDF-3
+* NetCDF-4
+* JSON
+* CSV
+* ASCII
+
+We've also implemented our own THREDDS catalog support.
+
+=== Reliability
+
+Finally, Hyrax is hardened and battle-tested. Not only can it be easily extended to support
+many data structures and sources, but it is highly-integrated with NASA, which has thousands of
+highly-structured datasets that are currently accessible via the DAP.
+
 
 === Support
 
@@ -36,9 +68,3 @@ Furthermore, for tasks that require a heavier lift than simple support, OPeNDAP 
 We can work with you to implement new features and are willing to negotiate on time and materials,
 as well as fixed-price contracts. For more information about the levels of support that OPeNDAP provides,
 check out our link:/support[Support page].
-
-=== Reliability
-
-Finally, Hyrax is hardened and battle-tested. Not only can it be easily extended to support
-many data structures and sources, but it is highly-integrated with NASA, which has thousands of
-highly-structured datasets that are currently accessible via the DAP.

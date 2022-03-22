@@ -1,7 +1,0 @@
-= Back-end Server (BES)
-
-The BES is the high-performance server software from HAO. It reads data from the data stores and returns DAP-compliant responses to the OLFS. In turn, the OLFS may pass these response back to the requestor with little or no modification, or it may use them to build more complex responses. The nature of the Inter Process Communication (IPC) between the OLFS and BES is such that they should both be on the same machine or able to communicate over a very high-bandwidth channel.
-
-BES CMDL
-- if you know how to write BES command, you can use it to send to a running BES and get the answer
-BES Standalone

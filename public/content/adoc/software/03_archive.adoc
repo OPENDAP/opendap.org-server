@@ -1,4 +1,4 @@
-= Software Archive
+== Software Archive
 
 The HTTP archive holds just about every piece of software we have ever released.
 Each release is held in a separate directory. Beta and final versions for each release

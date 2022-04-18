@@ -1,4 +1,4 @@
-= Continuous Integration Builds
+== Continuous Integration Builds
 
 We run Continuous Integration (CI) builds using 
 link:https://travis-ci.org/OPENDAP/[Travis-CI] for the libdap, bes, olfs and pydap.

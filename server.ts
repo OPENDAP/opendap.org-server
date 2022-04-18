@@ -85,6 +85,10 @@ app.get('/api/hyrax/guide', (req, res) => {
 
 app.use('/images', express.static(path.resolve(path.join('public', 'images'))));
 
+// Public key
+
+app.use('/security', express.static(path.resolve('public', 'security')));
+
 // app.get('/api/image/:imageName', (req, res) => {
 
 //     hyraxModule.getGuide().subscribe(response => {

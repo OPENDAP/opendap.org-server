@@ -1,11 +1,11 @@
-= Version Control
+== Version Control
 
 We have moved most of our active projects to [GitHub](https://github.com/opendap).
 You can clone the libdap, bes, and other projects' repositories from github.com/opendap.
 We respond to problem tickets submitted on the site,
 but our primary issue tracking system is Jira, which has open access for readers.
 
-== GitHub Links
+=== GitHub Links
 
 There are many projects in our GitHub repository, here are some:
 
@@ -15,7 +15,7 @@ a|link:https://github.com/OPENDAP/hyrax[Hyrax] |The Hyrax server meta project.
 a|link:https://github.com/OPENDAP/bes[BES], link:https://github.com/OPENDAP/olfs[OLFS]  |Child projects that are make up the Hyrax project.
 |=============
 
-== Subversion (SVN)
+=== Subversion (SVN)
 
 A way to get older source code is to use anonymous access to our read-only SVN repository.
 In 2015 we moved to GitHub for most of our active projects and switch the SVN repository

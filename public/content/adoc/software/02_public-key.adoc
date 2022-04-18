@@ -1,6 +1,6 @@
-= Public Key
+== Public Key
 
-OPeNDAP's Public Key is available here. We now (November 2007) sign all of
+OPeNDAP's Public Key is available link:/security/opendap_public_key.asc[here]. We now (November 2007) sign all of
 our software releases using gpg and a key created just for this purpose.
 The public key is bound to the email address security@opendap.org.
 The address is 'real' in the sense that email sent there will be answered,

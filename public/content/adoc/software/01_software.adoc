@@ -10,7 +10,7 @@ and you can download either source code or pre-built binaries from here.
 The following packages have their own pages:
 
 |=============
-a|link:/software/hyrax[Hyrax] |Our modular data server.
+a|link:/hyrax-about[Hyrax] |Our modular data server.
 a|link:/software/libdap[libdap] |Software development toolkit that can be used to build clients and servers using C++.
 |=============
 

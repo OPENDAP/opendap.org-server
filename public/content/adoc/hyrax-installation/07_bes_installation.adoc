@@ -14,7 +14,9 @@ TODO: Introduce libdap and the BES as the OLFS is introduced in the
 document Master_Hyrax_OLFS_Installation.
 ////
 
-== Download
+== BES Installation
+
+=== 1. Download
 
 It is necessary that you download and install both the _libdap_ and _BES_ binaries.
 
@@ -38,7 +40,7 @@ _libdap_ and _BES_ RPMs will result in errors.
 TODO: Supplement/modify the following information as necessary. It was taken
 from the Hyrax install page.
 ////
-== Install
+=== 2. Install
 
 . Use yum to install the libdap and bes RPMs: +
   `sudo yum install libdap-3.x.x.rpm bes-3.x.x.rpm`).
@@ -52,14 +54,3 @@ from the Hyrax install page.
    `BESClient> show version`
 .. exit from `bescmdln`: +
    `BESClient> exit`
-
-
-NOTE: *If you are upgrading to Hyrax 1.13.4 or newer from an existing installation
-older than 1.13.0,* in the bes.conf file the keys _BES.CacheDir_, 
-_BES.CacheSize_, and _BES.CachePrefix_ have been replaced with 
-_BES.UncompressCache.dir_, _BES.UncompressCache.size_, and 
-_BES.UncompressCache.prefix_ respectively. Other changes include the gateway 
-cache configuration (_gateway.conf_) which now uses the keys _Gateway.Cache.dir_, 
-_Gateway.Cache.size_, and _Gateway.Cache.prefix_ to configure its cache. Changing
-the names enabled the BES to use separate parameters for each of its several
-caches, which fixes the problem of 'cache collisions.'

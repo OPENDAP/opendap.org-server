@@ -23,6 +23,15 @@
               "link": "hyrax-data-handlers"
             }
           ]
+        },
+        {
+          "name": "DAP4",
+          "menuItems": [
+            {
+              "name": "DAP4 Specs: Volume 1",
+              "link": "DAP4-specification-volume-1"
+            }
+          ]
         }
       ]
     },

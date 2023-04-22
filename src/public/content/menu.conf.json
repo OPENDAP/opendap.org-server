@@ -1,0 +1,56 @@
+{
+  "menu": [
+    {
+      "name": "Software",
+      "menuItems": [
+        {
+          "name": "Software Home",
+          "link": "software"
+        },
+        {
+          "name": "Hyrax",
+          "menuItems": [
+            {
+              "name": "About Hyrax",
+              "link": "hyrax-about"
+            },
+            {
+              "name": "Installation",
+              "link": "hyrax-installation"
+            },
+            {
+              "name": "Data Handlers",
+              "link": "hyrax-data-handlers"
+            }
+          ]
+        },
+        {
+          "name": "DAP4",
+          "menuItems": [
+            {
+              "name": "DAP4 Specs: Volume 1",
+              "link": "DAP4-specification-volume-1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Support",
+      "menuItems": [
+        {
+          "name": "Support Home",
+          "link": "support"
+        },
+        {
+          "name": "FAQ",
+          "link": "faq"
+        }
+      ]
+    },
+    {
+      "name": "About Us",
+      "link": "about-us"
+    }
+  ]
+}

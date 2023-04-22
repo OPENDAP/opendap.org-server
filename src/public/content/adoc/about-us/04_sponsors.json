@@ -1,0 +1,24 @@
+{
+    "gallery": [
+        {
+            "title": "NOAA",
+            "subTitle": "National Oceanic<br>& Atmospheric Administration",
+            "imageURL": "/images/noaa-logo.png"
+        },
+        {
+            "title": "NASA",
+            "subTitle": "National Aeronautics<br>& Space Administration",
+            "imageURL": "/images/nasa-logo.png"
+        },
+        {
+            "title": "NSF",
+            "subTitle": "National Science<br>Foundation",
+            "imageURL": "/images/nsf-logo.png"
+        },
+        {
+            "title": "BOM",
+            "subTitle": "Australian Bureau of Meteorology",
+            "imageURL": "/images/bom-logo.jpg"
+        }
+    ]
+}

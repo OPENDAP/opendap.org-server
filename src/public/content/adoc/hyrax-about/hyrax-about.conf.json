@@ -1,0 +1,33 @@
+{
+  "pageTitle": "Hyrax",
+  "sections": [
+    {
+      "sectionType": "standard",
+      "title": "",
+      "id": "what-is-hyrax",
+      "filename": "01_what-is-hyrax.adoc",
+      "parsedFile": ""
+    },
+    {
+      "sectionType": "standard",
+      "title": "Advantages",
+      "id": "advantages",
+      "filename": "02_advantages.adoc",
+      "parsedFile": ""
+    },
+    {
+      "sectionType": "standard",
+      "title": "Architecture",
+      "id": "architecture",
+      "filename": "03_architecture.adoc",
+      "parsedFile": ""
+    },
+    {
+      "sectionType": "standard",
+      "title": "Features",
+      "id": "features",
+      "filename": "02_features.adoc",
+      "parsedFile": ""
+    }
+  ]
+}

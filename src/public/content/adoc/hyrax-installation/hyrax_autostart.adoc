@@ -1,0 +1,39 @@
+== Autostart Hyrax on Boot
+
+In Linux, if you want Hyrax to start at boot time then you can do the following:
+
+* Add Tomcat to the startup process:  `chkconfig --add tomcat`
+* Add the BES to the startup process: `chkconfig --add besd`
+
+Confirm that this worked by using the list function of `chkconfig`:
+```
+[~]$ chkconfig --list besd
+besd           	0:off	1:off	2:on	3:on	4:on	5:on	6:off
+[~]$ chkconfig --list tomcat
+tomcat         	0:off	1:off	2:on	3:on	4:on	5:on	6:off
+```
+
+=== All systems running Tomcat from Apache distribution
+
+If you have a Tomcat instance inflated from a downloaded distribution file
+from Apache Tomcat then  you will need to configure the Tomcat environment
+by setting the environment variable CATALINA_HOME to the full path of the
+unpacked Tomcat distribution.
+
+In bash: `export CATALINA_HOME = /usr/local/apache-tomcat-6.x.x`
+
+With your shell environment configured correctly you should be able to control Tomcat like this:
+
+* *Start Tomcat*: `$CATALINA_HOME/bin/startup.sh`
+* *Stop  Tomcat*: `$CATALINA_HOME/bin/shutdown.sh`
+
+When Tomcat starts up, it will unpack your opendap.war file and install the
+webapp. You can watch this process and see other logging output by starting the
+Tomcat like so:
+
+* *Start and Watch Tomcat*: `$CATALINA_HOME/bin/startup.sh; tail -f $CATALINA_HOME/logs/catalina.out`
+
+WARNING: If you use `ctrl-c` to stop watching the tail of the
+server's output, make sure to run the command `bin/shutdown.sh`
+to shutdown Tomcat. If you don't, you may get errors when you next try
+to start the Tomcat server.

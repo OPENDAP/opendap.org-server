@@ -1,0 +1,38 @@
+== Architecture
+
+Hyrax is a system that comprises two parts:
+the OPeNDAP Lightweight Front-end Server (OLFS) implements a web API, and the Back-end Server (BES) is a compute engine.
+The OLFS and the BES work together to serve data.
+The OLFS receives requests via the web API and creates XML documents for the BES.
+The BES ingests the XML file and works with different types of datastores to construct the correct response.
+That response is then sent back to the OLFS.
+
+{{
+  "sectionType": "html",
+  "title": "architecture",
+  "id": "hyrax-architecture",
+  "filename": "hyrax-architecture.html",
+  "parsedFile": ""
+}}
+
+We did not take the decision to split Hyrax lightly. There were a few reasons we decided to do so.
+
+=== Do One Thing Well
+
+Following the Unix design paradigm, we have developed two distinct pieces of software, each of which
+does one thing well:
+
+* The OLFS uses the Java servlet mechanism to hand off requests from a general web daemon to the BES. 
+It looks at each request and formulates a query to a second server, the BES. 
+
+* The BES on the other hand is high-performance server software from HAO.
+It reads data from the data stores and returns DAP-compliant responses to the OLFS.
+
+// The nature of the Inter Process Communication (IPC) between the OLFS and BES is such that they should both be on the same machine or able to communicate over a very high-bandwidth channel.
+
+=== Security
+
+Our second consideration had to do with security. The OLFS is the point of contact for the entire world,
+meaning that, while very secure in its own right, it is exposed to security threats. The BES, on the other hand,
+is only accessible via the OLFS. If the OLFS is breached, intruders will be able to access data,
+but they will only be able to inflict minimal damage.

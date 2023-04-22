@@ -1,6 +1,24 @@
-# OPeNDAP.org Site Readme
+OPeNDAP.org Site Readme
 
-## 1.Installing OPeNDAP.org Node.js Server
+- [1. Installing OPeNDAP.org Node.js Server](#1-installing-opendaporg-nodejs-server)
+  - [1.1. Install and Configure Apache](#11-install-and-configure-apache)
+    - [1.1.1. Install Apache](#111-install-apache)
+    - [1.1.2. Configure UFW (Uncomplicated Firewall)](#112-configure-ufw-uncomplicated-firewall)
+  - [1.2. Configure Apache Proxy](#12-configure-apache-proxy)
+  - [1.3. Clone Server Repo](#13-clone-server-repo)
+  - [1.4. Install and Configure Node](#14-install-and-configure-node)
+    - [1.4.1. Install Node.js](#141-install-nodejs)
+    - [1.4.2. Install the Server](#142-install-the-server)
+    - [1.4.3. Install PM2](#143-install-pm2)
+    - [1.4.4. Start the Server](#144-start-the-server)
+- [2. Contributing and Editing Content](#2-contributing-and-editing-content)
+  - [2.1. Site Design Details](#21-site-design-details)
+  - [2.2. Editing Content](#22-editing-content)
+  - [2.3. Editing `.conf`-driven Content](#23-editing-conf-driven-content)
+    - [2.3.1. `.conf` Files](#231-conf-files)
+
+
+# 1. Installing OPeNDAP.org Node.js Server
 
 The new OPeNDAP.org site has been developed using Angular CLI for the front-end
 and Node.js for the back-end. The site is template-driven, meaning that most
@@ -14,12 +32,12 @@ NOTE: Please note that the following tutorial
 should work on other flavors of linux, with minor adjustments for package
 management. (For example, CentOS uses `yum` instead of `apt`).
 
-### 1.1. Install and Configure Apache
+## 1.1. Install and Configure Apache
 
 You have to configure Apache to allow secure external access to the front-end interface.
 Note that much of this section was taken from [digitalocean.com](https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-18-04-quickstart).
 
-#### 1.1.1. Install Apache
+### 1.1.1. Install Apache
 
 Update your local package index:
 
@@ -36,7 +54,7 @@ sudo apt install apache2
 You can confirm that the Apache2 installation succeeded by entering your server's IP
 into a web browser. If you see the default Apache page, you have suceeded.
 
-#### 1.1.2 Configure UFW (Uncomplicated Firewall)
+### 1.1.2. Configure UFW (Uncomplicated Firewall)
 
 ````bash
 sudo ufw app list
@@ -58,7 +76,7 @@ This is the most restrictive profile that will let in traffic on port 80:
 sudo ufw allow 'Apache'
 ````
 
-### 1.1.3 Configure Apache Proxy
+## 1.2. Configure Apache Proxy
 
 You now need to configure Apache to proxy all requests incoming on port 80
 to the node.js server's port. Start by enabling Apache's proxy modules:
@@ -123,7 +141,7 @@ Restart Apache:
 sudo systemctl reload apache2
 ````
 
-### 1.2. Clone Server Repo
+## 1.3. Clone Server Repo
 
 After configuring Apache, clone the [server repository](https://github.com/alexporrello/opendap.org-server)
 into `/var/www/html`:
@@ -142,27 +160,28 @@ Resolving deltas: 100% (109/109), done.
 ubuntu@ip-172-31-52-254:/var/www/html$
 ````
 
-### 1.3. Install and Configure Node
+The server repository includes pre-compiled JavaScript,
+as well as the compiled web application.
 
-#### 1.3.1. Install Node.js
+## 1.4. Install and Configure Node
 
-Install Node.js:
+### 1.4.1. Install Node.js
 
-````bash
-sudo apt install nodejs
-````
-
-You can confirm your node installation with the command `nodejs -v`.
-If your node installation has succeeded, the output will be node's version
-number, such as `v8.10.0`.
-
-Node.js relies on Node Package Manager (NPM). Install NPM:
+Install Node Version Manager (NVM), which allows for easy Node.js upgrades in future releases:
 
 ````bash
-sudo apt install npm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 ````
 
-#### 1.3.2. Install the Server
+Install node `v12.20.2` with NVM:
+
+````bash
+nvm install 12.20.2
+````
+
+### 1.4.2. Install the Server
 
 In the server directory (`/var/www/html/opendap.org-server`), run:
 
@@ -170,7 +189,7 @@ In the server directory (`/var/www/html/opendap.org-server`), run:
 sudo npm install
 ````
 
-#### 1.3.3 Install PM2
+### 1.4.3. Install PM2
 
 PM2 is the process manager we're going to be using to manage our node.js
 instance. To install PM2, run:
@@ -179,17 +198,17 @@ instance. To install PM2, run:
 sudo npm install -g pm2
 ````
 
-#### 1.3.4 Start the Server
+### 1.4.4. Start the Server
 
 If you're not already there, navigate to the `opendap.org-server` directory,
 and run:
 
 ````BASH
-pm2 start server.js --name opendap.org
+npm run start:prod
 ````
 
 This will launch the server, whose code is contained with the `server.js` file,
-in the background. After you've run the pm2 start command, you should receive
+in the background. After you've run the npm start command, you should receive
 output like the following:
 
 ````BASH
@@ -202,13 +221,13 @@ output like the following:
 └────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
 ````
 
-## 2. Contributing and Editing Content
+# 2. Contributing and Editing Content
 
 OPeNDAP.org is a dynamic site. Most of its content is contained within AsciiDoc
 markdown files that are housed within the server's `./public` directory. These
 files are parsed server-side and sent to the UI.
 
-### 2.1 Site Design Details
+## 2.1. Site Design Details
 
 OPeNDAP.org is a web application, rather than a set of static HTML, CSS,
 and JavaScript files. Its front-end is written with Angular CLI,
@@ -220,7 +239,7 @@ written with Express.js.
 This design lends itself to easy maintainability, as well as the
 ability to quickly and efficiently update and release new content.
 
-### 2.2 Editing Content
+## 2.2. Editing Content
 
 In most cases, editing the website's content is as simple as...
 
@@ -233,7 +252,7 @@ the _About OPeNDAP_ page is housed within `./public/adoc/about-us.adoc`.
 For more structurally complicated pages, such as the support pages,
 updating is slightly more complex.
 
-### 2.3 Editing `.conf`-driven Content
+## 2.3. Editing `.conf`-driven Content
 
 `.conf`-driven content is content that is loaded to the
 website via a configuration file. This is necessary in instances
@@ -251,7 +270,7 @@ Notice how the `Documentation` section of the Support page has three tabs:
 
 The tabs are achieved by the `support.conf.json` file.
 
-#### 2.3.1 `.conf` Files
+### 2.3.1. `.conf` Files
 
 A `.conf` file is a json file that lives with the `.adoc` files that it describes.
 For example, the Support page's conf file lives within `./public/adoc/support`.

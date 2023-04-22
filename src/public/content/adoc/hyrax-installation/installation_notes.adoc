@@ -1,0 +1,26 @@
+== Installation Notes
+
+==== Upgrading Hyrax from < 1.13.0
+
+The following is applicable if you are upgrading to Hyrax 1.13.4 or newer from an existing installation
+older than 1.13.0. 
+
+In the bes.conf file the keys `BES.CacheDir`, `BES.CacheSize`, and `BES.CachePrefix` have been replaced with 
+`BES.UncompressCache.dir`, `BES.UncompressCache.size`, and `BES.UncompressCache.prefix`.
+
+Other changes include the gateway cache configuration (_gateway.conf_) which now uses the keys `Gateway.Cache.dir`, 
+`Gateway.Cache.size`, and `Gateway.Cache.prefix` to configure its cache. Changing
+the names enables the BES to use separate parameters for each of its several
+caches, which fixes the problem of cache collisions.
+
+==== CentOS-7/SELinux and Yum installed Tomcat
+
+Recent versions of CentOS-7 are shipped with default SELinux settings that prohibit Tomcat from reading or opening the *opendap.war* file. This can be addressed by issuing the following two commands:
+----
+sudo semanage fcontext -a -t tomcat_var_lib_t /var/lib/tomcat/webapps/opendap.war
+sudo restorecon -rv /var/lib/tomcat/webapps/
+----
+After this you will need to restart Tomcat:
+----
+sudo service tomcat restart
+----
